@@ -3,22 +3,20 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
-    required this.onPressed,
+    this.onPressed,
     this.widget,
     this.overflow,
     this.text,
-    this.isBig = false,
-    this.borderColor,
     this.constraints,
     this.width,
+    this.color,
   }) : super(key: key);
 
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final TextOverflow? overflow;
   final Widget? widget;
   final String? text;
-  final bool isBig;
-  final Color? borderColor;
+  final Color? color;
   final double? width;
   final BoxConstraints? constraints;
 
@@ -47,13 +45,13 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(isBig ? 14 : 20),
+          borderRadius: BorderRadius.circular(14),
         ),
       ),
       child: Container(
         alignment: Alignment.center,
-        height: isBig ? 48 : 34,
         width: width,
+        color: color,
         constraints: constraints,
         child: widget ??
             (text != null

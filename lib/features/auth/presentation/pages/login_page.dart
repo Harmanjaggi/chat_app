@@ -63,7 +63,6 @@ class LoginPage extends StatelessWidget with InputValidationMixin {
                 const SizedBox(height: 18),
                 CustomButton(
                   text: 'login',
-                  isBig: true,
                   onPressed: () {
                     if (formGlobalKey.currentState!.validate()) {
                       SignInModel user = SignInModel(

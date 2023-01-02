@@ -46,7 +46,7 @@ class DatabaseService {
     });
     // update the members
     await groupDocumentReference.update({
-      "members": FieldValue.arrayUnion(["${uid}_$userName"]),
+      'members': FieldValue.arrayUnion(["${uid}_$userName"]),
       "groupId": groupDocumentReference.id,
     });
 

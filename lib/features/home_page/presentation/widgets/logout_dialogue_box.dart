@@ -1,8 +1,9 @@
+import 'package:chat_app/navigation/route.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../../auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../auth/presentation/pages/login_page.dart';
-import '../../../auth/data/repositories/auth_service.dart';
 
 class LogoutDialogueBox extends StatelessWidget {
   const LogoutDialogueBox({super.key});
@@ -20,9 +21,7 @@ class LogoutDialogueBox extends StatelessWidget {
         IconButton(
           onPressed: () async {
             context.read<AuthCubit>().signOut();
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-                (route) => false);
+            context.go(RouteGenerator.authRoute);
           },
           icon: const Icon(
             Icons.done,

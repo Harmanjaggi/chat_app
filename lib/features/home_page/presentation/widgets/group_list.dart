@@ -1,3 +1,5 @@
+import 'package:chat_app/features/chat_page/data/models/group_model/group_model.dart';
+
 import '../../../components/failiure_screen.dart';
 import '../../../components/loading_screen.dart';
 import '../logic/home_cubit/home_cubit.dart';
@@ -38,11 +40,16 @@ class GroupList extends StatelessWidget {
                           int reverseIndex =
                               snapshot.data['groups'].length - index - 1;
                           return GroupTile(
-                              groupId:
-                                  getId(snapshot.data['groups'][reverseIndex]),
+                            GroupModel(
+                              groupId: getId(
+                                snapshot.data['groups'][reverseIndex],
+                              ),
                               groupName: getName(
-                                  snapshot.data['groups'][reverseIndex]),
-                              userName: snapshot.data['fullName']);
+                                snapshot.data['groups'][reverseIndex],
+                              ),
+                              userName: snapshot.data['fullName'],
+                            ),
+                          );
                         },
                       );
                     } else {

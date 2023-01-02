@@ -1,4 +1,4 @@
-import 'package:chat_app/helper/helper_function.dart';
+import 'package:chat_app/helper/local_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,10 +14,10 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
   createGroup(String groupName) async {
     emit(const CreateGroupState.loading());
     try {
-      String? userName = await HelperFunctions.getUserName();
-      DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-          .createGroup(
-              userName ?? '', FirebaseAuth.instance.currentUser!.uid, groupName)
+      String? userName = await LocalDatasource.getUserName();
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DatabaseService(uid: uid)
+          .createGroup(userName!, uid, groupName)
           .whenComplete(() {
         emit(const CreateGroupState.success());
       });
