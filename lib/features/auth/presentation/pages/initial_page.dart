@@ -16,7 +16,7 @@ class InitialPage extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           unathorized: (c) => context.go(RouteGenerator.authRoute),
-          authorized: (c) => context.go(RouteGenerator.homeRoute),
+          authorized: (c) => context.go(RouteGenerator.chatroomRoute),
         );
       },
       builder: (context, state) {

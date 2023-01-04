@@ -26,7 +26,8 @@ class CustomTextField extends StatelessWidget {
   final bool autofocus, readOnly, obscureText, showBorder, filled;
   final TextInputType? keyboardType;
   final void Function(String value)? onSubitted;
-  final String? hintText, labelText, prefixIcon, suffixIcon;
+  final String? hintText, labelText;
+  final Widget? prefixIcon, suffixIcon;
   final String? Function(String? value)? validator;
   final void Function(String? value)? onChange;
   final int maxLines;
@@ -68,25 +69,12 @@ class CustomTextField extends StatelessWidget {
             labelText: labelText,
             fillColor: Theme.of(context).canvasColor,
             prefixIcon: prefixIcon != null
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 12,
-                    ),
-                    child: Image.asset(prefixIcon!),
-                  )
+                ? prefixIcon!
                 : null,
             suffixIcon: suffixIcon != null
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 12,
-                    ),
-                    child: Image.asset(suffixIcon!),
-                  )
+                ? suffixIcon!
                 : null,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            contentPadding: const EdgeInsets.all(8),
             filled: filled,
           ),
         ),

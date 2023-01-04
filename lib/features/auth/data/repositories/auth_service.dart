@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../group_page/data/repository/database_service.dart';
 import '../models/sign_in_model/sign_in_model.dart';
 import '../models/sign_up_model/sign_up_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../helper/local_datasource.dart';
-import '../../../home_page/data/repository/database_service.dart';
 
 class AuthService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;

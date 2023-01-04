@@ -81,7 +81,7 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
               const SizedBox(height: 18),
               CustomButton(
                 text: 'register',
-                onPressed: () {
+                onTap: () {
                   if (formGlobalKey.currentState!.validate()) {
                     SignUpModel user = SignUpModel(
                         fullName: fullNameController.text,

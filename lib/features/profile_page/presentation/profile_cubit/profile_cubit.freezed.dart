@@ -19,21 +19,21 @@ mixin _$ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data) success,
+    required TResult Function(ProfileModel data, PlatformFile? image) success,
     required TResult Function(dynamic e) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image)? success,
     TResult? Function(dynamic e)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data)? success,
+    TResult Function(ProfileModel data, PlatformFile? image)? success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) =>
@@ -98,12 +98,18 @@ class __$$ProfileLoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProfileLoading implements ProfileLoading {
+class _$ProfileLoading with DiagnosticableTreeMixin implements ProfileLoading {
   const _$ProfileLoading();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ProfileState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'ProfileState.loading'));
   }
 
   @override
@@ -119,7 +125,7 @@ class _$ProfileLoading implements ProfileLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data) success,
+    required TResult Function(ProfileModel data, PlatformFile? image) success,
     required TResult Function(dynamic e) failure,
   }) {
     return loading();
@@ -129,7 +135,7 @@ class _$ProfileLoading implements ProfileLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image)? success,
     TResult? Function(dynamic e)? failure,
   }) {
     return loading?.call();
@@ -139,7 +145,7 @@ class _$ProfileLoading implements ProfileLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data)? success,
+    TResult Function(ProfileModel data, PlatformFile? image)? success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) {
@@ -194,7 +200,7 @@ abstract class _$$ProfileSuccessCopyWith<$Res> {
           _$ProfileSuccess value, $Res Function(_$ProfileSuccess) then) =
       __$$ProfileSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({ProfileModel data});
+  $Res call({ProfileModel data, PlatformFile? image});
 
   $ProfileModelCopyWith<$Res> get data;
 }
@@ -211,12 +217,17 @@ class __$$ProfileSuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object? data = null,
+    Object? image = freezed,
   }) {
     return _then(_$ProfileSuccess(
       null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as ProfileModel,
+      freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as PlatformFile?,
     ));
   }
 
@@ -231,15 +242,26 @@ class __$$ProfileSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProfileSuccess implements ProfileSuccess {
-  const _$ProfileSuccess(this.data);
+class _$ProfileSuccess with DiagnosticableTreeMixin implements ProfileSuccess {
+  const _$ProfileSuccess(this.data, this.image);
 
   @override
   final ProfileModel data;
+  @override
+  final PlatformFile? image;
 
   @override
-  String toString() {
-    return 'ProfileState.success(data: $data)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ProfileState.success(data: $data, image: $image)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProfileState.success'))
+      ..add(DiagnosticsProperty('data', data))
+      ..add(DiagnosticsProperty('image', image));
   }
 
   @override
@@ -247,11 +269,12 @@ class _$ProfileSuccess implements ProfileSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileSuccess &&
-            (identical(other.data, data) || other.data == data));
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, data);
+  int get hashCode => Object.hash(runtimeType, data, image);
 
   @JsonKey(ignore: true)
   @override
@@ -263,32 +286,32 @@ class _$ProfileSuccess implements ProfileSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data) success,
+    required TResult Function(ProfileModel data, PlatformFile? image) success,
     required TResult Function(dynamic e) failure,
   }) {
-    return success(data);
+    return success(data, image);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image)? success,
     TResult? Function(dynamic e)? failure,
   }) {
-    return success?.call(data);
+    return success?.call(data, image);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data)? success,
+    TResult Function(ProfileModel data, PlatformFile? image)? success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(data);
+      return success(data, image);
     }
     return orElse();
   }
@@ -329,9 +352,11 @@ class _$ProfileSuccess implements ProfileSuccess {
 }
 
 abstract class ProfileSuccess implements ProfileState {
-  const factory ProfileSuccess(final ProfileModel data) = _$ProfileSuccess;
+  const factory ProfileSuccess(
+      final ProfileModel data, final PlatformFile? image) = _$ProfileSuccess;
 
   ProfileModel get data;
+  PlatformFile? get image;
   @JsonKey(ignore: true)
   _$$ProfileSuccessCopyWith<_$ProfileSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -370,15 +395,23 @@ class __$$ProfileFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProfileFailure implements ProfileFailure {
+class _$ProfileFailure with DiagnosticableTreeMixin implements ProfileFailure {
   const _$ProfileFailure(this.e);
 
   @override
   final dynamic e;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'ProfileState.failure(e: $e)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ProfileState.failure'))
+      ..add(DiagnosticsProperty('e', e));
   }
 
   @override
@@ -403,7 +436,7 @@ class _$ProfileFailure implements ProfileFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data) success,
+    required TResult Function(ProfileModel data, PlatformFile? image) success,
     required TResult Function(dynamic e) failure,
   }) {
     return failure(e);
@@ -413,7 +446,7 @@ class _$ProfileFailure implements ProfileFailure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image)? success,
     TResult? Function(dynamic e)? failure,
   }) {
     return failure?.call(e);
@@ -423,7 +456,7 @@ class _$ProfileFailure implements ProfileFailure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data)? success,
+    TResult Function(ProfileModel data, PlatformFile? image)? success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) {

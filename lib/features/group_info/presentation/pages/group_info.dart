@@ -1,6 +1,6 @@
-import 'package:chat_app/features/chat_page/data/models/group_info_model/group_info_model.dart';
 import 'package:chat_app/features/components/failiure_screen.dart';
 import 'package:chat_app/features/components/loading_screen.dart';
+import 'package:chat_app/features/group_chat_page/data/models/group_info_model/group_info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../helper/helper_function.dart';

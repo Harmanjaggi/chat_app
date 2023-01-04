@@ -1,19 +1,29 @@
+import 'package:chat_app/features/chatroom_chat_page/presentation/pages/chatroom_chat_page.dart';
+import 'package:chat_app/features/chatroom_page/data/models/chatroom_model/chatroom_model.dart';
+import 'package:chat_app/features/chatroom_page/presentation/pages/chatroom_page.dart';
+import 'package:chat_app/features/group_chat_page/data/models/group_info_model/group_info_model.dart';
+import 'package:chat_app/features/group_chat_page/data/models/group_model/group_model.dart';
+import 'package:chat_app/features/group_chat_page/presentation/pages/group_chat_page.dart';
+import 'package:chat_app/features/group_info/presentation/pages/group_info.dart';
 import 'package:chat_app/features/profile_page/presentation/pages/profile_page.dart';
-import 'package:chat_app/features/search_page/presentation/pages/search_page.dart';
 
 import '../features/auth/presentation/pages/auth_screen.dart';
 import '../features/auth/presentation/pages/initial_page.dart';
-import '../features/home_page/presentation/pages/home_page.dart';
 import 'package:go_router/go_router.dart';
 import '../features/components/error_screen.dart';
+import '../features/group_page/presentation/pages/group_page.dart';
 
 class RouteGenerator {
   static const String initialRoute = '/';
   static const String splashPage = '/splash_page';
-  static const String searchPage = '/home_page/search_page';
   static const String authRoute = '/auth';
   static const String registerRoute = '/register';
-  static const String homeRoute = '/home_page';
+  static const String groupRoute = '/group_page';
+  static const String groupChatPageRoute = '/group_page/group_chat_page';
+  static const String groupInfoRoute =
+      '/group_page/group_chat_page/group_info_page';
+  static const String chatroomRoute = '/chatroom_page';
+  static const String chatroomChatRoute = '/chatroom_page/chatroom_chat_page';
   static const String profileRoute = '/profile_page';
 
   final GoRouter goRouter;
@@ -33,15 +43,35 @@ class RouteGenerator {
         builder: (_, __) => const AuthScreen(),
       ),
       GoRoute(
-        path: homeRoute,
-        builder: (_, __) => const HomePage(),
+        path: groupRoute,
+        builder: (_, __) => const GroupPage(),
         routes: [
           GoRoute(
-            path: 'search_page',
-            builder: (_, __) => const SearchPage(),
-          ),
+              path: 'group_chat_page',
+              builder: (_, state) => GroupChatPage(state.extra as GroupModel),
+              routes: [
+                GoRoute(
+                  path: 'group_info_page',
+                  builder: (_, state) => GroupInfo(
+                    state.extra as GroupInfoModel,
+                  ),
+                ),
+              ]),
+          // GoRoute(
+          //   path: 'search_page',
+          //   builder: (_, __) => const SearchPage(),
+          // ),
         ],
       ),
+      GoRoute(
+          path: chatroomRoute,
+          builder: (_, __) => const ChatroomPage(),
+          routes: [
+            GoRoute(
+              path: 'chatroom_chat_page',
+              builder: (_, state) => ChatroomChatPage(state.extra as ChatroomModel),
+            ),
+          ]),
       GoRoute(
         path: profileRoute,
         builder: (_, __) => const ProfilePage(),

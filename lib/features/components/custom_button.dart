@@ -1,70 +1,51 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
+  final VoidCallback? onTap;
+  final Widget? child;
+  final EdgeInsetsGeometry padding;
+  final String? text;
+  final Color? buttonColor;
+  final Color? textColor;
+  final Color? borderColor;
+  final double? elevation;
+  final double radius;
+  final double? textSize;
+  final double? height;
+  final double? width;
+  final FocusNode? focusNode;
+
   const CustomButton({
     Key? key,
-    this.onPressed,
-    this.widget,
-    this.overflow,
-    this.text,
-    this.constraints,
+    this.onTap,
+    this.child,
+    this.padding = const EdgeInsets.all(16),
+    this.buttonColor,
+    this.textColor,
+    this.borderColor,
+    this.elevation,
+    this.radius = 12,
+    this.textSize,
+    this.height,
     this.width,
-    this.color,
+    this.focusNode,
+    this.text,
   }) : super(key: key);
-
-  final void Function()? onPressed;
-  final TextOverflow? overflow;
-  final Widget? widget;
-  final String? text;
-  final Color? color;
-  final double? width;
-  final BoxConstraints? constraints;
-
-  factory CustomButton.secondary({
-    required void Function() onPressed,
-    BoxConstraints? constraints,
-    String? text,
-    double? width,
-    Widget? widget,
-    TextOverflow? overflow,
-  }) {
-    return CustomButton(
-      onPressed: onPressed,
-      constraints: constraints,
-      text: text,
-      overflow: overflow,
-      width: width,
-      widget: widget,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
+    return MaterialButton(
+      onPressed: onTap,
+      elevation: elevation ?? 0,
+      color: buttonColor ?? Theme.of(context).primaryColor,
+      padding: padding,
+      height: height,
+      minWidth: width,
+      focusNode: focusNode,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radius),
       ),
-      child: Container(
-        alignment: Alignment.center,
-        width: width,
-        color: color,
-        constraints: constraints,
-        child: widget ??
-            (text != null
-                ? Text(
-                    text!,
-                    style: theme.textTheme.button?.copyWith(
-                      overflow: overflow,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 18,
-                    ),
-                  )
-                : const SizedBox()),
-      ),
+      child: text != null ? Text(text!) : null,
     );
   }
 }

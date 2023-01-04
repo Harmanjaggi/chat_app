@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget with InputValidationMixin {
                 const SizedBox(height: 18),
                 CustomButton(
                   text: 'login',
-                  onPressed: () {
+                  onTap: () {
                     if (formGlobalKey.currentState!.validate()) {
                       SignInModel user = SignInModel(
                         email: emailController.text,

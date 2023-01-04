@@ -30,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
         curve: Curves.easeIn,
       );
     }
-    page == Status.login ?  page = Status.register : page = Status.login;
+    page == Status.login ? page = Status.register : page = Status.login;
   }
 
   void currentState() async {
