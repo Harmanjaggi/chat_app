@@ -16,13 +16,21 @@ class MyApp extends StatelessWidget {
     final route = RouteGenerator().goRouter;
     return BlocProvider(
       create: (context) => AuthCubit(AuthService()),
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        supportedLocales: L10n.all,
-        routerDelegate: route.routerDelegate,
-        routeInformationParser: route.routeInformationParser,
-        routeInformationProvider: route.routeInformationProvider,
-        scrollBehavior: MyScrollBehavior(),
+      child: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.focusedChild?.unfocus();
+          }
+        },
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          supportedLocales: L10n.all,
+          routerDelegate: route.routerDelegate,
+          routeInformationParser: route.routeInformationParser,
+          routeInformationProvider: route.routeInformationProvider,
+          scrollBehavior: MyScrollBehavior(),
+        ),
       ),
     );
   }

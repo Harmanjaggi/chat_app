@@ -22,6 +22,7 @@ class ChatroomList extends StatelessWidget {
             var ss = snapshot.data['chatrooms'];
             return ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: ss.length,
               itemBuilder: (context, index) {
                 int reverseIndex = ss.length - index - 1;

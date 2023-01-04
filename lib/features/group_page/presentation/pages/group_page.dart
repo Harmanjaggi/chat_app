@@ -18,36 +18,20 @@ class GroupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GroupCubit(),
-      child: BlocBuilder<GroupCubit, GroupState>(
-        builder: (context, state) {
-          return BaseWidget(
-            'Groups',
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => popUpDialog(context),
-              elevation: 0,
-              backgroundColor: Theme.of(context).primaryColor,
-              child: const Icon(
-                Icons.add,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-            child: ListView(
-              children: [
-                const GroupSearchBar(),
-                const SizedBox(height: 16),
-                state.when(
-                  loading: () => const LoadingScreen(),
-                  failure: (e) => FailureScreen(e),
-                  success: (data) => GroupList(data),
-                ),
-              ],
-            ),
-          );
-        },
+    return BaseWidget(
+      'Groups',
+      searchBox: const GroupSearchBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => popUpDialog(context),
+        elevation: 0,
+        backgroundColor: Theme.of(context).primaryColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
+        ),
       ),
+      child: const GroupList(),
     );
   }
 }

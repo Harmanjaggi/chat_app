@@ -65,6 +65,7 @@ class CustomTextField extends StatelessWidget {
           validator: validator,
           maxLines: maxLines,
           decoration: InputDecoration(
+            border: circularBorder(Theme.of(context).primaryColor),
             hintText: hintText,
             labelText: labelText,
             fillColor: Theme.of(context).canvasColor,

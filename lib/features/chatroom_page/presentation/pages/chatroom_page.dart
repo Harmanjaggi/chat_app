@@ -24,6 +24,7 @@ class ChatroomPage extends StatelessWidget {
           return BaseWidget(
             'Chat Rooms',
             child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 const ChatroomSearchBar(),
                 state.when(

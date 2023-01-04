@@ -16,7 +16,7 @@ class ChatTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+      contentPadding: const EdgeInsets.symmetric(vertical: 12),
       leading: CircleAvatar(
         radius: 30,
         backgroundColor: Theme.of(context).primaryColor,

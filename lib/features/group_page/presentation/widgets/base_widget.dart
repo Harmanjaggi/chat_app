@@ -1,97 +1,99 @@
 import 'package:chat_app/navigation/route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../logic/group_cubit/group_cubit.dart';
 import 'logout_dialogue_box.dart';
 
-class BaseWidget extends StatefulWidget {
+class BaseWidget extends StatelessWidget {
   const BaseWidget(
     this.title, {
-    super.key,
+    required this.child,
     this.leading,
     this.action,
-    this.child,
     this.floatingActionButton,
+    super.key,
+    this.searchBox,
   });
   final String title;
-  final Widget? leading, action, child, floatingActionButton;
-  @override
-  State<BaseWidget> createState() => _BaseWidgetState();
-}
-
-class _BaseWidgetState extends State<BaseWidget> {
+  final Widget child;
+  final Widget? leading, action, floatingActionButton, searchBox;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GroupCubit(),
-      child: BlocBuilder<GroupCubit, GroupState>(
-        builder: (context, state) {
-          return Scaffold(
-            body: widget.child,
-            appBar: AppBar(
-              centerTitle: true,
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
               title: Text(
-                widget.title,
+                title,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 27,
                 ),
               ),
-              leading: widget.leading,
-              actions: [if (widget.action != null) widget.action!],
-            ),
-            floatingActionButton: widget.floatingActionButton,
-            drawer: Drawer(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 50),
-                children: <Widget>[
-                  Icon(
-                    Icons.account_circle,
-                    size: 150,
-                    color: Colors.grey[700],
+              centerTitle: true,
+              expandedHeight: 110,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    context.read<GroupCubit>().userName ?? '',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 30),
-                  const Divider(height: 2),
-                  drawerTile(
-                    onTap: () => context.go(RouteGenerator.groupRoute),
-                    leading: const Icon(Icons.group),
-                    title: 'Groups',
-                  ),
-                  drawerTile(
-                    onTap: () => context.go(RouteGenerator.chatroomRoute),
-                    leading: const Icon(Icons.group),
-                    title: 'Private Chatroom',
-                  ),
-                  drawerTile(
-                    onTap: () => context.go(RouteGenerator.profileRoute),
-                    leading: const Icon(Icons.group),
-                    title: 'Profile',
-                  ),
-                  drawerTile(
-                    onTap: () async {
-                      await showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) => const LogoutDialogueBox(),
-                      );
-                    },
-                    leading: const Icon(Icons.exit_to_app),
-                    title: 'Logout',
-                  ),
-                ],
+                  alignment: Alignment.bottomCenter,
+                  child: searchBox,
+                ),
               ),
             ),
-          );
-        },
+            SliverToBoxAdapter(child: child)
+          ],
+        ),
+        floatingActionButton: floatingActionButton,
+        drawer: Drawer(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(vertical: 50),
+            children: <Widget>[
+              Icon(
+                Icons.account_circle,
+                size: 150,
+                color: Colors.grey[700],
+              ),
+              const SizedBox(height: 15),
+              // Text(
+              //   context.read<GroupCubit>().userName ?? '',
+              //   textAlign: TextAlign.center,
+              //   style: const TextStyle(fontWeight: FontWeight.bold),
+              // ),
+              const SizedBox(height: 30),
+              const Divider(height: 2),
+              drawerTile(
+                  onTap: () => context.go(RouteGenerator.groupRoute),
+                  leading: const Icon(Icons.group),
+                  title: 'Groups',
+                  color: Theme.of(context).primaryColor),
+              drawerTile(
+                  onTap: () => context.go(RouteGenerator.chatroomRoute),
+                  leading: const Icon(Icons.group),
+                  title: 'Private Chatroom',
+                  color: Theme.of(context).primaryColor),
+              drawerTile(
+                  onTap: () => context.go(RouteGenerator.profileRoute),
+                  leading: const Icon(Icons.group),
+                  title: 'Profile',
+                  color: Theme.of(context).primaryColor),
+              drawerTile(
+                onTap: () async {
+                  await showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) => const LogoutDialogueBox(),
+                  );
+                },
+                leading: const Icon(Icons.exit_to_app),
+                title: 'Logout',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -100,10 +102,11 @@ class _BaseWidgetState extends State<BaseWidget> {
     void Function()? onTap,
     Widget? leading,
     required String title,
+    Color? color,
   }) {
     return ListTile(
       onTap: onTap,
-      selectedColor: Theme.of(context).primaryColor,
+      selectedColor: color,
       selected: true,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 20,

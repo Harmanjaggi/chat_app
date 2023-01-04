@@ -13,7 +13,10 @@ class SearchBar extends StatefulWidget {
   State<SearchBar> createState() => _SearchBarState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
   static OverlayEntry? entry;
   late FocusNode focusNode;
   TextEditingController searchController = TextEditingController();
@@ -25,11 +28,23 @@ class _SearchBarState extends State<SearchBar> {
     searchController.addListener(() {
       widget.onSearch(searchController.text);
     });
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      reverseDuration: const Duration(milliseconds: 300),
+    );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.ease,
+      reverseCurve: Curves.ease,
+    );
+    _animationController.addListener(() => setState(() {}));
     super.initState();
   }
 
   @override
   void dispose() {
+    _animationController.dispose();
     removeOverlay();
     focusNode.dispose();
     super.dispose();
@@ -48,25 +63,17 @@ class _SearchBarState extends State<SearchBar> {
       final renderBox = context.findRenderObject() as RenderBox;
       final size = renderBox.size;
       entry ??= OverlayEntry(
-        builder: (newContext) => GestureDetector(
-          onTap: () => focusNode.unfocus(),
+        builder: (newContext) => CompositedTransformFollower(
+          link: layerLink,
+          showWhenUnlinked: false,
+          offset: Offset(0, size.height),
           child: Container(
-            color: Colors.transparent,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CompositedTransformFollower(
-              link: layerLink,
-              showWhenUnlinked: false,
-              offset: Offset(0, size.height),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: OverlayAnimation(
-                  isOpen: focusNode.hasFocus,
-                  child: GestureDetector(
-                    onTap: () => focusNode.requestFocus(),
-                    child: widget.list,
-                  ),
-                ),
-              ),
+            margin: EdgeInsets.only(right: 32),
+            alignment: Alignment.topCenter,
+            child: SizeTransition(
+              sizeFactor: _animation,
+              axisAlignment: 1,
+              child: widget.list,
             ),
           ),
         ),
@@ -75,80 +82,24 @@ class _SearchBarState extends State<SearchBar> {
     }
 
     focusNode.addListener(() {
-      focusNode.hasFocus ? showOverlay() : removeOverlay();
+      if (!focusNode.hasPrimaryFocus) focusNode.unfocus();
+      if (focusNode.hasFocus) {
+        showOverlay();
+        _animationController.forward();
+      } else {
+        removeOverlay();
+        _animationController.reverse();
+      }
     });
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: CompositedTransformTarget(
-        link: layerLink,
-        child: CustomTextField(
-          controller: searchController,
-          hintText: "Search groups....",
-          suffixIcon: const Icon(Icons.search),
-          focusNode: focusNode,
-        ),
+
+    return CompositedTransformTarget(
+      link: layerLink,
+      child: CustomTextField(
+        controller: searchController,
+        hintText: "Search groups....",
+        suffixIcon: const Icon(Icons.search),
+        focusNode: focusNode,
       ),
-    );
-  }
-}
-
-class OverlayAnimation extends StatefulWidget {
-  const OverlayAnimation({
-    super.key,
-    required this.child,
-    required this.isOpen,
-    this.duration = const Duration(milliseconds: 500),
-    this.reverseDuration,
-    this.curve = Curves.ease,
-    this.reverseCurve,
-  });
-  final Duration duration;
-  final Duration? reverseDuration;
-  final bool isOpen;
-  final Curve curve;
-  final Curve? reverseCurve;
-  final Widget child;
-
-  @override
-  State<OverlayAnimation> createState() => _OverlayAnimationState();
-}
-
-class _OverlayAnimationState extends State<OverlayAnimation>
-    with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-      reverseDuration: widget.reverseDuration ?? widget.duration,
-    );
-    _animation = CurvedAnimation(
-      parent: _animationController,
-      curve: widget.curve,
-      reverseCurve: widget.reverseCurve ?? widget.curve,
-    );
-    _animationController.addListener(() => setState(() {}));
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    widget.isOpen
-        ? _animationController.forward()
-        : _animationController.reverse();
-    return SizeTransition(
-      sizeFactor: _animation,
-      axisAlignment: 1,
-      child: widget.child,
     );
   }
 }
