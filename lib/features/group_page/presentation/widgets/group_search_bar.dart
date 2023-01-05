@@ -1,9 +1,8 @@
 import 'package:chat_app/features/components/search_bar.dart';
 import 'package:chat_app/features/group_page/data/models/search_tile_model/search_tile_model.dart';
-import 'package:chat_app/features/group_page/presentation/logic/search_cubit/search_cubit.dart';
+import 'package:chat_app/features/group_page/presentation/logic/search_group_bloc/search_group_bloc.dart';
 import 'package:chat_app/features/group_page/presentation/widgets/search_group_tile.dart';
 import 'package:chat_app/helper/constant.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,13 +12,27 @@ class GroupSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return BlocProvider(
-      create: (context) => SearchCubit(),
-      child: BlocBuilder<SearchCubit, QuerySnapshot?>(
+      create: (context) => SearchGroupBloc(),
+      child: BlocBuilder<SearchGroupBloc, SearchGroupState>(
         builder: (context, state) {
-          final cubit = context.read<SearchCubit>();
-          bool check = state != null && state.docs.isNotEmpty;
+          Widget searchList(SearchGroupState state) {
+            if (state is SearchGroupSuccess) {
+              print('1-------${state.data}');
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: state.data.length,
+                itemBuilder: (context, index) {
+                  print('2-------${state.data}');
+                  return SearchGroupTile(state.data[index]);
+                },
+              );
+            } else {
+              return Text('No Data', style: theme.textTheme.bodyLarge);
+            }
+          }
+
           return SearchBar(
-            onSearch: (data) => cubit.getSearchedGroup(data),
+            onSearch: (data) => context.read<SearchGroupBloc>().add(SearchGroupEvent(data)),
             list: Material(
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -32,22 +45,31 @@ class GroupSearchBar extends StatelessWidget {
                 ),
                 width: double.infinity,
                 decoration: kRoundedBottomContainer,
-                child: check
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.docs.length,
-                        itemBuilder: (context, index) {
-                          var ss = state.docs[index];
-                          SearchTileModel data = SearchTileModel(
-                            userName: cubit.userName ?? '',
-                            groupId: ss['groupId'],
-                            groupName: ss['groupName'],
-                            adminName: ss['admin'],
-                          );
-                          return SearchGroupTile(data);
-                        },
-                      )
-                    : Text('No Data', style: theme.textTheme.bodyLarge),
+                child: searchList(state),
+                // child: state.when(
+                //   initial: () =>
+                //       Text('No Data', style: theme.textTheme.bodyLarge),
+                //   success: (searchSnapshot) {
+                //     return ListView.builder(
+                //       shrinkWrap: true,
+                //       itemCount: searchSnapshot.docs.length,
+                //       itemBuilder: (context, index) {
+                //         var ss = searchSnapshot.docs[index];
+                //         SearchTileModel data = SearchTileModel(
+                //           userName: cubit.userName ?? '',
+                //           groupId: ss['groupId'],
+                //           groupName: ss['groupName'],
+                //           adminName: ss['admin'],
+                //         );
+                //         return SearchGroupTile(data);
+                //       },
+                //     );
+                //   },
+                //   loading: () =>
+                //       Text('No Data', style: theme.textTheme.bodyLarge),
+                //   error: (e) =>
+                //       Text(e.toString(), style: theme.textTheme.bodyLarge),
+                // ),
               ),
             ),
           );

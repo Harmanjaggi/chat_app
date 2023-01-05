@@ -68,7 +68,7 @@ class _SearchBarState extends State<SearchBar> with TickerProviderStateMixin {
           showWhenUnlinked: false,
           offset: Offset(0, size.height),
           child: Container(
-            margin: EdgeInsets.only(right: 32),
+            margin: const EdgeInsets.only(right: 32),
             alignment: Alignment.topCenter,
             child: SizeTransition(
               sizeFactor: _animation,
