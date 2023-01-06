@@ -33,6 +33,8 @@ class SearchChatroomCubit extends Cubit<SearchChatroomState> {
           .map((e) => SearchChatroomModel(
                 userName: userName ?? '',
                 chatroomName: e['fullName'],
+                uid: e['uid'],
+                email: e['email'],
               ))
           .toList();
       searchSnapshot.docs.isNotEmpty

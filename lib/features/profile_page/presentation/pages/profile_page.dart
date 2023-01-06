@@ -40,23 +40,39 @@ class ProfilePage extends StatelessWidget {
                 loading: () => const LoadingScreen(),
                 success: (data, image) {
                   return ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 40,
                       vertical: 100,
                     ),
                     children: [
-                      CircleAvatar(
-                        child: CustomImage(
-                          height: 100,
-                          width: 100,
-                            file: image != null ? openFile(image) : null),
+                      Center(
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            CircleAvatar(
+                              radius: 100,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: CustomImage(
+                                  height: 200,
+                                  width: 200,
+                                  file: image != null ? openFile(image) : null,
+                                ),
+                              ),
+                            ),
+                            CircleAvatar(
+                              backgroundColor: Colors.grey,
+                              child: IconButton(
+                                onPressed: () => uploadFile(),
+                                icon: const Icon(Icons.edit),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      CustomButton(
-                        text: 'Upload Photo',
-                        width: 100,
-                        onTap: () => uploadFile(),
-                      ),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -74,7 +90,10 @@ class ProfilePage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text("Email", style: TextStyle(fontSize: 17)),
+                          const Text("Email",
+                              style: TextStyle(
+                                fontSize: 17,
+                              )),
                           Text(
                             data.email ?? '',
                             style: const TextStyle(fontSize: 17),

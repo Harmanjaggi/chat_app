@@ -14,7 +14,6 @@ class SearchGroupTile extends StatelessWidget {
   final SearchTileModel data;
   @override
   Widget build(BuildContext context) {
-  print('11--------$data');
     GroupModel groupData = GroupModel(
       groupId: data.groupId,
       groupName: data.groupName,
@@ -24,55 +23,53 @@ class SearchGroupTile extends StatelessWidget {
       create: (context) => SearchTileCubit(data),
       child: BlocBuilder<SearchTileCubit, SearchTileState>(
         builder: (context, state) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: ListTile(
-              dense: true,
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundColor: Theme.of(context).primaryColor,
-                child: Text(
-                  data.groupName.substring(0, 1).toUpperCase(),
-                  style: const TextStyle(color: Colors.white),
-                ),
+          var cubit = context.read<SearchTileCubit>();
+          cubit.checkJoined(data);
+          return ListTile(
+            dense: true,
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundColor: Theme.of(context).primaryColor,
+              child: Text(
+                data.groupName.substring(0, 1).toUpperCase(),
+                style: const TextStyle(color: Colors.white),
               ),
-              title: Text(
-                data.groupName,
-                style: const TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle:
-                  Text("Admin: ${HelperFunction.getName(data.adminName)}"),
-              trailing: state.when(
-                  loading: () => const CustomButton(width: 60),
-                  success: (isJoined) {
-                    onPressed() async {
-                      context.read<SearchTileCubit>().toggleGroupJoin();
-                      if (isJoined) {
-                        showSnackbar(
-                          context,
-                          Colors.green,
-                          "Successfully joined he group",
-                        );
-                        Future.delayed(const Duration(seconds: 1), () {
-                          nextScreen(context, GroupChatPage(groupData));
-                        });
-                      } else {
-                        showSnackbar(
-                          context,
-                          Colors.red,
-                          "Left the group ${data.groupName}",
-                        );
-                      }
-                    }
-
-                    return CustomButton(
-                      width: 60,
-                      buttonColor: Theme.of(context).primaryColor,
-                      onTap: onPressed,
-                      text: isJoined ? 'Joined' : 'Join Now',
-                    );
-                  }),
             ),
+            title: Text(
+              data.groupName,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text("Admin: ${HelperFunction.getName(data.adminName)}"),
+            trailing: state.when(
+                loading: () => const CustomButton(width: 60),
+                success: (isJoined) {
+                  onPressed() async {
+                    cubit.toggleGroupJoin(data);
+                    if (!isJoined) {
+                      showSnackbar(
+                        context,
+                        Colors.green,
+                        "Successfully joined he group",
+                      );
+                      Future.delayed(const Duration(seconds: 1), () {
+                        nextScreen(context, GroupChatPage(groupData));
+                      });
+                    } else {
+                      showSnackbar(
+                        context,
+                        Colors.red,
+                        "Left the group ${data.groupName}",
+                      );
+                    }
+                  }
+
+                  return CustomButton(
+                    width: 60,
+                    buttonColor: Theme.of(context).primaryColor,
+                    onTap: onPressed,
+                    text: isJoined ? 'Joined' : 'Join Now',
+                  );
+                }),
           );
         },
       ),

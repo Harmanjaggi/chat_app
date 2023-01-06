@@ -12,11 +12,11 @@ part 'search_tile_cubit.freezed.dart';
 class SearchTileCubit extends Cubit<SearchTileState> {
   SearchTileModel data;
   SearchTileCubit(this.data) : super(const SearchTileState.loading()) {
-    checkJoined();
+    checkJoined(data);
   }
   String? uid;
   bool? isJoined;
-  checkJoined() async {
+  checkJoined(SearchTileModel data) async {
     try {
       uid = FirebaseAuth.instance.currentUser!.uid;
       isJoined = await DatabaseService(uid: uid)
@@ -28,7 +28,7 @@ class SearchTileCubit extends Cubit<SearchTileState> {
     }
   }
 
-  toggleGroupJoin() async {
+  toggleGroupJoin(SearchTileModel data) async {
     try {
       await DatabaseService(uid: uid).toggleGroupJoin(
         data.groupId,

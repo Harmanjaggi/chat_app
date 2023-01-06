@@ -43,31 +43,47 @@ class PrivateDBService {
     return userCollection.where("fullName", isEqualTo: chatroom).get();
   }
 
-  Future createChatroom(String userName2, String chatRoomId) async {
-    final snapShot = await chatroomsCollection.doc(chatRoomId).get();
-    if (snapShot.exists) return null;
-    // chatroom does not exists
-    chatroomsCollection.doc(chatRoomId).set({
+  Future createChatroom({
+    required String userName1,
+    required String userName2,
+    required String uid2,
+    required String user1email,
+    required String user2email,
+  }) async {
+    DocumentReference chatroomDocumentReference =
+        await chatroomsCollection.add({
       "userName": userName2,
       "userIcon": "",
-      "chatroomId": chatRoomId,
+      "chatroomId": "",
       "recentMessage": "",
     });
     // update the members
-    String id = "${chatRoomId}_$userName2";
+    await chatroomDocumentReference.update({
+      "chatroomId": chatroomDocumentReference.id,
+    });
     DocumentReference userDocumentReference = userCollection.doc(uid);
     await userDocumentReference.update({
-      "chatrooms": FieldValue.arrayUnion([id])
+      "chatrooms": FieldValue.arrayUnion([
+        "${chatroomDocumentReference.id}_$userName2",
+      ]),
+      "contactList": FieldValue.arrayUnion([user2email]),
     });
-    return true;
+
+    DocumentReference user2DocumentReference = userCollection.doc(uid2);
+    await user2DocumentReference.update({
+      "chatrooms": FieldValue.arrayUnion([
+        "${chatroomDocumentReference.id}_$userName1",
+      ]),
+      "contactList": FieldValue.arrayUnion([user1email]),
+    });
+    return chatroomDocumentReference.id;
   }
 
-  Future<bool> isUserJoined(String userName2, String chatRoomId) async {
-    String id = "${chatRoomId}_$userName2";
+  Future<bool> isUserJoined(String user2EmailId) async {
     DocumentReference userDocumentReference = userCollection.doc(uid);
     DocumentSnapshot documentSnapshot = await userDocumentReference.get();
 
-    List<dynamic> chatrooms = await documentSnapshot['chatrooms'];
-    return chatrooms.contains(id) ? true : false;
+    List<dynamic> chatrooms = await documentSnapshot['contactList'];
+    return chatrooms.contains(user2EmailId) ? true : false;
   }
 }

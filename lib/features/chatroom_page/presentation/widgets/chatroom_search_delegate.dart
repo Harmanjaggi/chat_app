@@ -51,18 +51,21 @@ class ChatroomSearchDelegate extends SearchDelegate {
     return BlocBuilder<SearchChatroomCubit, SearchChatroomState>(
       bloc: blocContext,
       builder: (context, state) {
-        return state.when(
-          initial: () => Container(),
-          failure: (e) => Container(),
-          success: (data) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return SearchChatroomTile(data[index]);
-              },
-            );
-          },
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          child: state.when(
+            initial: () => Container(),
+            failure: (e) => Container(),
+            success: (data) {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return SearchChatroomTile(data[index]);
+                },
+              );
+            },
+          ),
         );
       },
     );

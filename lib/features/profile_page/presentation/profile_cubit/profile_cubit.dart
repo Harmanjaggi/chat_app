@@ -1,7 +1,11 @@
+import 'dart:io';
 import 'package:chat_app/features/profile_page/data/models/profile_model/profile_model.dart';
+import 'package:chat_app/features/profile_page/data/repositories/profile_service.dart';
 import 'package:chat_app/helper/local_datasource.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,14 +18,16 @@ class ProfileCubit extends Cubit<ProfileState> {
     getProfileData();
   }
   PlatformFile? pickedFile;
-  MultipartFile? file;
   ProfileModel? data;
+
+  String? uid;
 
   getProfileData() async {
     try {
+      uid = FirebaseAuth.instance.currentUser!.uid;
       data = ProfileModel(
-        userName: await LocalDatasource.getUserEmail(),
-        email: await LocalDatasource.getUserName(),
+        userName: await LocalDatasource.getUserName(),
+        email: await LocalDatasource.getUserEmail(),
       );
       data != null
           ? emit(ProfileState.success(data!, null))
@@ -39,7 +45,16 @@ class ProfileCubit extends Cubit<ProfileState> {
       );
       if (result != null) {
         pickedFile = result.files.first;
-        file = await getMultiPath(pickedFile);
+        File imageFile = File(pickedFile!.path!);
+        String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+        Reference firebaseStorageRef =
+            FirebaseStorage.instance.ref().child('images');
+        final refImageToUpload = firebaseStorageRef.child(fileName);
+        //Store the file
+        await refImageToUpload.putFile(imageFile);
+        //Success: get the download URL
+        String imageUrl = await refImageToUpload.getDownloadURL();
+        await ProfielService(uid: uid).updateProfilePic(imageUrl);
         emit(ProfileState.success(data!, pickedFile));
       } else {
         emit(const ProfileState.loading());

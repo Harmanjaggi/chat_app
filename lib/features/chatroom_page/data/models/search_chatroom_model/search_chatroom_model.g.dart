@@ -11,6 +11,8 @@ _$_SearchChatroomModel _$$_SearchChatroomModelFromJson(
     _$_SearchChatroomModel(
       userName: json['userName'] as String,
       chatroomName: json['chatroomName'] as String,
+      uid: json['uid'] as String,
+      email: json['email'] as String,
     );
 
 Map<String, dynamic> _$$_SearchChatroomModelToJson(
@@ -18,4 +20,6 @@ Map<String, dynamic> _$$_SearchChatroomModelToJson(
     <String, dynamic>{
       'userName': instance.userName,
       'chatroomName': instance.chatroomName,
+      'uid': instance.uid,
+      'email': instance.email,
     };

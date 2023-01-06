@@ -20,7 +20,6 @@ class ChatroomCubit extends Cubit<ChatroomState> {
       userName = await LocalDatasource.getUserName();
       String? uid = FirebaseAuth.instance.currentUser!.uid;
       chatrooms = await PrivateDBService(uid: uid).getChatRooms();
-      print('~~~~~~~$chatrooms');
       chatrooms != null
           ? emit(ChatroomState.success(chatrooms!))
           : emit(const ChatroomState.loading());

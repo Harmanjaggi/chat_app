@@ -17,6 +17,8 @@ class DatabaseService {
       "email": email,
       "groups": [],
       "chatrooms": [],
+      "contactList": [],
+      "type": "",
       "profilePic": "",
       "uid": uid,
     });

@@ -22,6 +22,8 @@ SearchChatroomModel _$SearchChatroomModelFromJson(Map<String, dynamic> json) {
 mixin _$SearchChatroomModel {
   String get userName => throw _privateConstructorUsedError;
   String get chatroomName => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,7 @@ abstract class $SearchChatroomModelCopyWith<$Res> {
           SearchChatroomModel value, $Res Function(SearchChatroomModel) then) =
       _$SearchChatroomModelCopyWithImpl<$Res, SearchChatroomModel>;
   @useResult
-  $Res call({String userName, String chatroomName});
+  $Res call({String userName, String chatroomName, String uid, String email});
 }
 
 /// @nodoc
@@ -53,6 +55,8 @@ class _$SearchChatroomModelCopyWithImpl<$Res, $Val extends SearchChatroomModel>
   $Res call({
     Object? userName = null,
     Object? chatroomName = null,
+    Object? uid = null,
+    Object? email = null,
   }) {
     return _then(_value.copyWith(
       userName: null == userName
@@ -62,6 +66,14 @@ class _$SearchChatroomModelCopyWithImpl<$Res, $Val extends SearchChatroomModel>
       chatroomName: null == chatroomName
           ? _value.chatroomName
           : chatroomName // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -75,7 +87,7 @@ abstract class _$$_SearchChatroomModelCopyWith<$Res>
       __$$_SearchChatroomModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userName, String chatroomName});
+  $Res call({String userName, String chatroomName, String uid, String email});
 }
 
 /// @nodoc
@@ -91,6 +103,8 @@ class __$$_SearchChatroomModelCopyWithImpl<$Res>
   $Res call({
     Object? userName = null,
     Object? chatroomName = null,
+    Object? uid = null,
+    Object? email = null,
   }) {
     return _then(_$_SearchChatroomModel(
       userName: null == userName
@@ -101,6 +115,14 @@ class __$$_SearchChatroomModelCopyWithImpl<$Res>
           ? _value.chatroomName
           : chatroomName // ignore: cast_nullable_to_non_nullable
               as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -109,7 +131,10 @@ class __$$_SearchChatroomModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SearchChatroomModel implements _SearchChatroomModel {
   const _$_SearchChatroomModel(
-      {required this.userName, required this.chatroomName});
+      {required this.userName,
+      required this.chatroomName,
+      required this.uid,
+      required this.email});
 
   factory _$_SearchChatroomModel.fromJson(Map<String, dynamic> json) =>
       _$$_SearchChatroomModelFromJson(json);
@@ -118,10 +143,14 @@ class _$_SearchChatroomModel implements _SearchChatroomModel {
   final String userName;
   @override
   final String chatroomName;
+  @override
+  final String uid;
+  @override
+  final String email;
 
   @override
   String toString() {
-    return 'SearchChatroomModel(userName: $userName, chatroomName: $chatroomName)';
+    return 'SearchChatroomModel(userName: $userName, chatroomName: $chatroomName, uid: $uid, email: $email)';
   }
 
   @override
@@ -132,12 +161,15 @@ class _$_SearchChatroomModel implements _SearchChatroomModel {
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.chatroomName, chatroomName) ||
-                other.chatroomName == chatroomName));
+                other.chatroomName == chatroomName) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userName, chatroomName);
+  int get hashCode =>
+      Object.hash(runtimeType, userName, chatroomName, uid, email);
 
   @JsonKey(ignore: true)
   @override
@@ -157,7 +189,9 @@ class _$_SearchChatroomModel implements _SearchChatroomModel {
 abstract class _SearchChatroomModel implements SearchChatroomModel {
   const factory _SearchChatroomModel(
       {required final String userName,
-      required final String chatroomName}) = _$_SearchChatroomModel;
+      required final String chatroomName,
+      required final String uid,
+      required final String email}) = _$_SearchChatroomModel;
 
   factory _SearchChatroomModel.fromJson(Map<String, dynamic> json) =
       _$_SearchChatroomModel.fromJson;
@@ -166,6 +200,10 @@ abstract class _SearchChatroomModel implements SearchChatroomModel {
   String get userName;
   @override
   String get chatroomName;
+  @override
+  String get uid;
+  @override
+  String get email;
   @override
   @JsonKey(ignore: true)
   _$$_SearchChatroomModelCopyWith<_$_SearchChatroomModel> get copyWith =>

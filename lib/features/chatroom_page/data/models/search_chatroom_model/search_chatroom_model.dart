@@ -8,6 +8,8 @@ class SearchChatroomModel with _$SearchChatroomModel {
   const factory SearchChatroomModel({
     required String userName,
     required String chatroomName,
+    required String uid,
+    required String email,
   }) = _SearchChatroomModel;
 
   factory SearchChatroomModel.fromJson(Map<String, dynamic> json) =>
