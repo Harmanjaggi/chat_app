@@ -11,11 +11,10 @@ class BaseWidget extends StatelessWidget {
     this.action,
     this.floatingActionButton,
     super.key,
-    this.searchBox,
   });
   final String title;
   final Widget child;
-  final Widget? leading, action, floatingActionButton, searchBox;
+  final Widget? leading, action, floatingActionButton;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,17 +31,9 @@ class BaseWidget extends StatelessWidget {
                 ),
               ),
               centerTitle: true,
-              expandedHeight: 110,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 16,
-                  ),
-                  alignment: Alignment.bottomCenter,
-                  child: searchBox,
-                ),
-              ),
+              actions: [
+                if (action != null) action!,
+              ],
             ),
             SliverToBoxAdapter(child: child)
           ],

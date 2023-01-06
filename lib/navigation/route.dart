@@ -57,10 +57,6 @@ class RouteGenerator {
                   ),
                 ),
               ]),
-          // GoRoute(
-          //   path: 'search_page',
-          //   builder: (_, __) => const SearchPage(),
-          // ),
         ],
       ),
       GoRoute(

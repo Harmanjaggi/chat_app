@@ -24,6 +24,7 @@ class ChatroomList extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: ss.length,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (context, index) {
                 int reverseIndex = ss.length - index - 1;
                 ChatroomModel chatroom = ChatroomModel(

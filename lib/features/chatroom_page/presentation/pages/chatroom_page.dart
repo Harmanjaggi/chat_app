@@ -1,4 +1,4 @@
-import 'package:chat_app/features/chatroom_page/presentation/widgets/chatroom_search_bar.dart';
+import 'package:chat_app/features/chatroom_page/presentation/widgets/chatroom_search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,17 +23,32 @@ class ChatroomPage extends StatelessWidget {
         builder: (context, state) {
           return BaseWidget(
             'Chat Rooms',
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                const ChatroomSearchBar(),
-                state.when(
+            action: BlocProvider(
+              create: (context) => SearchChatroomCubit(),
+              child: BlocBuilder<SearchChatroomCubit, SearchChatroomState>(
+                  builder: (context, state) {
+                final searchBloc =
+                    BlocProvider.of<SearchChatroomCubit>(context);
+
+                return IconButton(
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: ChatroomSearchDelegate(searchBloc),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                );
+              }),
+            ),
+            child: state.when(
                   loading: () => const LoadingScreen(),
                   failure: (e) => FailureScreen(e),
                   success: (data) => ChatroomList(data),
                 ),
-              ],
-            ),
           );
         },
       ),
