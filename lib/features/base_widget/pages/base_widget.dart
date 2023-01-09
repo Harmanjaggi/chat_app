@@ -50,7 +50,7 @@ class BaseWidget extends StatelessWidget {
                   children: <Widget>[
                     state.image != null && state.image != ""
                         ? CircleAvatar(
-                          backgroundColor: Colors.grey.shade400,
+                            backgroundColor: Colors.grey.shade400,
                             radius: 100,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
@@ -112,8 +112,11 @@ class BaseWidget extends StatelessWidget {
                     ),
                     drawerTile(
                       onTap: () async {
-                        
-                        
+                        await showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) => const LogoutDialogueBox(),
+                        );
                       },
                       leading: const Icon(Icons.exit_to_app),
                       title: 'Logout',
