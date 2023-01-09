@@ -1,3 +1,4 @@
+import 'package:chat_app/features/components/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,16 +20,19 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPasswordController = TextEditingController();
+    TextEditingController typeController = TextEditingController();
     ThemeData theme = Theme.of(context);
     return SingleChildScrollView(
       child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(36),
-              topRight: Radius.circular(36),
-            ),
-            boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 8.0)]),
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(36),
+            topRight: Radius.circular(36),
+          ),
+          // boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 8.0)],
+        ),
         padding: const EdgeInsets.fromLTRB(16, 18, 16, 8),
         child: Form(
           key: formGlobalKey,
@@ -39,12 +43,12 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
               const SizedBox(height: 18),
               Align(
                   alignment: Alignment.topCenter,
-                  child: Text('registerAccount',
+                  child: Text('Register Account',
                       style: theme.textTheme.headline5)),
               const SizedBox(height: 28),
               CustomTextField(
                 controller: fullNameController,
-                hintText: 'fullName',
+                hintText: 'FullName',
                 // prefixIcon: AppIcons.userIcon,
                 keyboardType: TextInputType.name,
                 validator: usernameValidation,
@@ -52,16 +56,14 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
               const SizedBox(height: 16),
               CustomTextField(
                 controller: emailController,
-                hintText: 'email',
-                // prefixIcon: AppIcons.emailIcon,
+                hintText: 'Email',
                 keyboardType: TextInputType.emailAddress,
                 validator: emailValidation,
               ),
               const SizedBox(height: 16),
               CustomTextField(
                 controller: passwordController,
-                hintText: 'password',
-                // prefixIcon: AppIcons.passwordIcon,
+                hintText: 'Password',
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 validator: passwordValidation,
@@ -69,8 +71,7 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
               const SizedBox(height: 16),
               CustomTextField(
                 controller: confirmPasswordController,
-                hintText: 'confirmPassword',
-                // prefixIcon: AppIcons.passwordIcon,
+                hintText: 'Confirm Password',
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 validator: (value) => confirmPasswordValidation(
@@ -78,19 +79,30 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
                   passwordController.text,
                 ),
               ),
+              const SizedBox(height: 16),
+              CustomDropdown(
+                width: 130,
+                hintText: 'Type',
+                list: typeList,
+                controller: typeController,
+              ),
               const SizedBox(height: 18),
-              CustomButton(
-                text: 'register',
-                onTap: () {
-                  if (formGlobalKey.currentState!.validate()) {
-                    SignUpModel user = SignUpModel(
+              Center(
+                child: CustomButton(
+                  text: 'Register',
+                  onTap: () {
+                    if (formGlobalKey.currentState!.validate()) {
+                      SignUpModel user = SignUpModel(
                         fullName: fullNameController.text,
                         email: emailController.text,
-                        password: passwordController.text);
-                    context.read<AuthCubit>().signUp(user);
-                    context.go(RouteGenerator.initialRoute);
-                  }
-                },
+                        password: passwordController.text,
+                        type: typeController.text
+                      );
+                      context.read<AuthCubit>().signUp(user);
+                      context.go(RouteGenerator.initialRoute);
+                    }
+                  },
+                ),
               ),
               const SizedBox(height: 20),
               const SwitchAccount(),
@@ -102,3 +114,5 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
     );
   }
 }
+
+List<String> typeList = ['Professor', 'Parent', 'Student'];

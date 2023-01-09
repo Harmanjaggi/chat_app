@@ -100,7 +100,7 @@ class CustomImage extends StatelessWidget {
               if (wasSynchronouslyLoaded) return child;
               return AnimatedOpacity(
                 opacity: frame == null ? 0 : 1,
-                duration: const Duration(seconds: 2),
+                duration: const Duration(milliseconds: 200),
                 curve: Curves.ease,
                 child: child,
               );

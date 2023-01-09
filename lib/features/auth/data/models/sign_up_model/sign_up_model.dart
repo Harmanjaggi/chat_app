@@ -6,8 +6,14 @@ part 'sign_up_model.g.dart';
 class SignUpModel {
   final String fullName;
   final String email;
+  final String? type;
   final String password;
-  SignUpModel({required this.fullName, required this.email, required this.password});
+  SignUpModel({
+    required this.fullName,
+    required this.email,
+    required this.type,
+    required this.password,
+  });
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) =>
       _$SignUpModelFromJson(json);

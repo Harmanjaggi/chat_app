@@ -16,11 +16,10 @@ class SwitchAccount extends StatelessWidget {
           style: theme.textTheme.bodyMedium,
           children: <TextSpan>[
             TextSpan(
-                text: toRegister
-                    ? 'dontHaveAccount'
-                    : 'alreadyHaveAccount'),
+                text:
+                    toRegister ? 'Dont Have Account' : 'Already Have Account'),
             TextSpan(
-              text: toRegister ? 'createOne' : 'goToLogin',
+              text: toRegister ? ' Create One' : ' go to Login',
               style: const TextStyle(fontWeight: FontWeight.bold),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {

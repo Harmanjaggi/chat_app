@@ -22,13 +22,16 @@ class LoginPage extends StatelessWidget with InputValidationMixin {
       alignment: Alignment.bottomCenter,
       child: SingleChildScrollView(
         child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(36),
               topRight: Radius.circular(36),
             ),
-            boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 8.0)],
+            // boxShadow: [
+            //   BoxShadow(color: Colors.grey, blurRadius: 8.0),
+            // ],
           ),
           padding: const EdgeInsets.fromLTRB(16, 18, 16, 8),
           child: Form(
@@ -36,33 +39,25 @@ class LoginPage extends StatelessWidget with InputValidationMixin {
             child: Column(
               children: [
                 const SizedBox(height: 18),
-                Text('loginAccount', style: theme.textTheme.headline5),
-                const SizedBox(height: 28),
+                Text('Login Account', style: theme.textTheme.headline5),
+                const SizedBox(height: 40),
                 CustomTextField(
                   controller: emailController,
-                  hintText: 'email',
-                  // prefixIcon: AppIcons.emailIcon,
+                  hintText: 'Email',
                   keyboardType: TextInputType.emailAddress,
                   validator: emailValidation,
                 ),
                 const SizedBox(height: 16),
                 CustomTextField(
                   controller: passwordController,
-                  hintText: 'password',
-                  // prefixIcon: AppIcons.passwordIcon,
+                  hintText: 'Password',
                   obscureText: true,
                   keyboardType: TextInputType.visiblePassword,
                   validator: passwordValidation,
                 ),
-                const SizedBox(height: 4),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Text('forgetPassword',
-                        style: theme.textTheme.bodySmall
-                            ?.copyWith(fontWeight: FontWeight.bold))),
-                const SizedBox(height: 18),
+                const SizedBox(height: 40),
                 CustomButton(
-                  text: 'login',
+                  text: 'Login',
                   onTap: () {
                     if (formGlobalKey.currentState!.validate()) {
                       SignInModel user = SignInModel(
@@ -74,7 +69,7 @@ class LoginPage extends StatelessWidget with InputValidationMixin {
                     }
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 const SwitchAccount(toRegister: true),
                 const SizedBox(height: 12),
               ],

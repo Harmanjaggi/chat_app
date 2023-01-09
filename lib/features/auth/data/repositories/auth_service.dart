@@ -21,8 +21,8 @@ class AuthService {
           .user;
       if (user != null) {
         QuerySnapshot snapshot =
-              await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-                  .gettingUserData(userInput.email);
+            await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+                .gettingUserData(userInput.email);
         LocalDatasource.setUserToken(user.uid);
         LocalDatasource.setUserEmail(userInput.email);
         LocalDatasource.setUserName(snapshot.docs[0]['fullName']);
@@ -41,8 +41,8 @@ class AuthService {
 
       if (user != null) {
         LocalDatasource.setUserToken(user.uid);
-        await DatabaseService(uid: user.uid)
-            .savingUserData(userInput.fullName, userInput.email);
+        await DatabaseService(uid: user.uid).savingUserData(
+            userInput.fullName, userInput.email, userInput.type ?? "");
         LocalDatasource.setUserToken(user.uid);
         LocalDatasource.setUserEmail(userInput.email);
         LocalDatasource.setUserName(userInput.fullName);

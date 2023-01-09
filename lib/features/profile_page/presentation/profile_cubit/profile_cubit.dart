@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -25,9 +24,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   getProfileData() async {
     try {
       uid = FirebaseAuth.instance.currentUser!.uid;
+      // List<dynamic>? contactList = await ProfielService(uid: uid).getContactList();
       data = ProfileModel(
         userName: await LocalDatasource.getUserName(),
         email: await LocalDatasource.getUserEmail(),
+        profilePic: await ProfielService(uid: uid).openProfilePic(),
+        type: await ProfielService(uid: uid).getType(),
+        // contactList: contactList?.map((e) => e.toString()).toList(),
       );
       data != null
           ? emit(ProfileState.success(data!, null))

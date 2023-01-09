@@ -34,6 +34,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return MaterialButton(
       onPressed: onTap,
       elevation: elevation ?? 0,
@@ -45,7 +46,15 @@ class CustomButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius),
       ),
-      child: text != null ? Text(text!) : null,
+      child: text != null
+          ? Text(
+              text!,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                color: textColor ?? Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          : null,
     );
   }
 }

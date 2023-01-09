@@ -6,22 +6,28 @@ class ChatTile extends StatelessWidget {
   const ChatTile({
     super.key,
     required this.title,
-    required this.userName,
+    required this.subtitle,
+    this.trailing,
     this.profilePic,
+    this.isThreeLine = false,
     this.onTap,
   });
-  final String title, userName;
+  final String title;
+  final String? subtitle;
   final String? profilePic;
+  final bool isThreeLine;
+  final String? trailing;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      isThreeLine: isThreeLine,
       onTap: onTap,
-      contentPadding: const EdgeInsets.symmetric(vertical: 12),
+      contentPadding: const EdgeInsets.fromLTRB(0, 12, 12, 12),
       leading: CircleAvatar(
         radius: 30,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: profilePic != null
+        backgroundColor: Colors.grey.shade400,
+        child: profilePic != null && profilePic != ""
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: CustomImage(
@@ -44,8 +50,12 @@ class ChatTile extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
-        "Join the conversation as $userName",
-        style: const TextStyle(fontSize: 13),
+        subtitle ?? '',
+        style: const TextStyle(fontSize: 14),
+      ),
+      trailing: Text(
+        trailing ?? '',
+        style: const TextStyle(color: Colors.blueGrey),
       ),
     );
   }

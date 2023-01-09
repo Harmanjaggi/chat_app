@@ -47,5 +47,6 @@ class ChatCubit extends Cubit<ChatState> {
     } catch (e) {
       emit(ChatState.failure(e));
     }
+    return null;
   }
 }

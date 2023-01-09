@@ -3,7 +3,6 @@ import 'package:chat_app/features/group_page/presentation/widgets/search_group_t
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class GroupSearchDelegate extends SearchDelegate {
   final SearchGroupCubit blocContext;
   GroupSearchDelegate(this.blocContext);
@@ -12,7 +11,7 @@ class GroupSearchDelegate extends SearchDelegate {
     return [
       IconButton(
         onPressed: () {
-          blocContext.getSearchedGroup(query);
+          blocContext.getSearchedGroup(query.trim());
         },
         icon: const Icon(Icons.search, size: 30),
       ),

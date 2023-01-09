@@ -2,9 +2,11 @@ import 'package:chat_app/features/chatroom_chat_page/presentation/chatroom_chat_
 import 'package:chat_app/features/chatroom_page/data/models/chatroom_model/chatroom_model.dart';
 import 'package:chat_app/features/components/failiure_screen.dart';
 import 'package:chat_app/features/components/loading_screen.dart';
+import 'package:chat_app/navigation/route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../components/chat_text_feild.dart';
 import '../../../components/message_tile.dart';
 
@@ -24,6 +26,17 @@ class ChatroomChatPage extends StatelessWidget {
               elevation: 0,
               title: Text(chatroom.chatroomName),
               backgroundColor: Theme.of(context).primaryColor,
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    context.push(
+                      RouteGenerator.chatroomProfileRoute,
+                      extra: chatroom.chatroomName,
+                    );
+                  },
+                  icon: const Icon(Icons.info),
+                )
+              ],
             ),
             body: state.when(
                 loading: () => const LoadingScreen(),

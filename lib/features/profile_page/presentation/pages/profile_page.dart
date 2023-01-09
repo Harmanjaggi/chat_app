@@ -7,9 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../components/custom_button.dart';
 import '../../../components/custom_image.dart';
-import '../../../group_page/presentation/widgets/base_widget.dart';
+import '../../../base_widget/pages/base_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -23,86 +22,112 @@ class ProfilePage extends StatelessWidget {
           builder: (context, state) {
             var cubit = context.read<ProfileCubit>();
 
-            File? uploadFile() {
-              cubit.getProfileImage();
-              if (cubit.pickedFile != null) {
-                return File(cubit.pickedFile!.path.toString());
-              }
-              return null;
-            }
-
             File? openFile(PlatformFile data) {
               return kIsWeb ? null : File(data.path.toString());
             }
 
             return state.when(
-                failure: (e) => FailureScreen(e),
-                loading: () => const LoadingScreen(),
-                success: (data, image) {
-                  return ListView(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 100,
-                    ),
-                    children: [
-                      Center(
-                        child: Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            CircleAvatar(
-                              radius: 100,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: CustomImage(
-                                  height: 200,
-                                  width: 200,
-                                  file: image != null ? openFile(image) : null,
+              failure: (e) => FailureScreen(e),
+              loading: () => const LoadingScreen(),
+              success: (data, image) {
+                String type = data.type != null && data.type != ""
+                    ? data.type!
+                    : "Not Mentioned";
+                return ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 100,
+                  ),
+                  children: [
+                    Center(
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          image == null
+                              ? CircleAvatar(
+                                  backgroundColor: Colors.grey.shade400,
+                                  radius: 100,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: CustomImage(
+                                      height: 200,
+                                      width: 200,
+                                      networkImage: data.profilePic != ""
+                                          ? data.profilePic
+                                          : null,
+                                    ),
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  backgroundColor: Colors.grey.shade400,
+                                  radius: 100,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: CustomImage(
+                                      height: 200,
+                                      width: 200,
+                                      file: openFile(image),
+                                    ),
+                                  ),
                                 ),
-                              ),
+                          CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            child: IconButton(
+                              onPressed: () => cubit.getProfileImage(),
+                              icon: const Icon(Icons.edit),
                             ),
-                            CircleAvatar(
-                              backgroundColor: Colors.grey,
-                              child: IconButton(
-                                onPressed: () => uploadFile(),
-                                icon: const Icon(Icons.edit),
-                              ),
-                            ),
-                          ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Full Name",
+                          style: TextStyle(fontSize: 17),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Full Name",
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          Text(
-                            data.userName ?? '',
-                            style: const TextStyle(fontSize: 17),
-                          ),
-                        ],
-                      ),
-                      const Divider(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Email",
-                              style: TextStyle(
-                                fontSize: 17,
-                              )),
-                          Text(
-                            data.email ?? '',
-                            style: const TextStyle(fontSize: 17),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                });
+                        Text(
+                          data.userName ?? '',
+                          style: const TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Email",
+                          style: TextStyle(fontSize: 17),
+                        ),
+                        Text(
+                          data.email ?? '',
+                          style: const TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Type",
+                          style: TextStyle(fontSize: 17),
+                        ),
+                        Text(
+                          type,
+                          style: const TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            );
           },
         ),
       ),

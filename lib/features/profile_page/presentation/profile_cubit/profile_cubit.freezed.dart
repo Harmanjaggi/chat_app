@@ -98,18 +98,12 @@ class __$$ProfileLoadingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProfileLoading with DiagnosticableTreeMixin implements ProfileLoading {
+class _$ProfileLoading implements ProfileLoading {
   const _$ProfileLoading();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.loading()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'ProfileState.loading'));
   }
 
   @override
@@ -242,7 +236,7 @@ class __$$ProfileSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProfileSuccess with DiagnosticableTreeMixin implements ProfileSuccess {
+class _$ProfileSuccess implements ProfileSuccess {
   const _$ProfileSuccess(this.data, this.image);
 
   @override
@@ -251,17 +245,8 @@ class _$ProfileSuccess with DiagnosticableTreeMixin implements ProfileSuccess {
   final PlatformFile? image;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.success(data: $data, image: $image)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ProfileState.success'))
-      ..add(DiagnosticsProperty('data', data))
-      ..add(DiagnosticsProperty('image', image));
   }
 
   @override
@@ -395,23 +380,15 @@ class __$$ProfileFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ProfileFailure with DiagnosticableTreeMixin implements ProfileFailure {
+class _$ProfileFailure implements ProfileFailure {
   const _$ProfileFailure(this.e);
 
   @override
   final dynamic e;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ProfileState.failure(e: $e)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ProfileState.failure'))
-      ..add(DiagnosticsProperty('e', e));
   }
 
   @override

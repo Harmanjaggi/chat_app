@@ -46,7 +46,7 @@ class SearchChatroomTile extends StatelessWidget {
           return ListTile(
             leading: CircleAvatar(
               radius: 30,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Colors.grey.shade400,
               child: Text(
                 chatroom.chatroomName.substring(0, 1).toUpperCase(),
                 style: const TextStyle(color: Colors.white),
@@ -54,10 +54,15 @@ class SearchChatroomTile extends StatelessWidget {
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 8),
             title: Text(
-              '${chatroom.chatroomName} | $state',
+              chatroom.chatroomName,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             subtitle: Text(chatroom.email),
+            trailing: Text(state != null
+                ? state
+                    ? 'Connected'
+                    : 'Not Connected'
+                : 'Not Connected'),
             onTap: onPressed,
           );
         },

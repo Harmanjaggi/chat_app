@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../logic/search_chatroom_cubit/search_chatroom_cubit.dart';
 
-
 class ChatroomSearchDelegate extends SearchDelegate {
   final SearchChatroomCubit blocContext;
   ChatroomSearchDelegate(this.blocContext);
@@ -13,7 +12,7 @@ class ChatroomSearchDelegate extends SearchDelegate {
     return [
       IconButton(
         onPressed: () {
-          blocContext.getSearchedChatroom(query);
+          blocContext.getSearchedChatroom(query.trim());
         },
         icon: const Icon(Icons.search, size: 30),
       ),

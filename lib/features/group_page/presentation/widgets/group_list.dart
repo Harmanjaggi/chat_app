@@ -44,7 +44,8 @@ class GroupList extends StatelessWidget {
                           );
                           return ChatTile(
                             title: group.groupName,
-                            userName: group.userName,
+                            subtitle:
+                                "Join the conversation as ${group.userName}",
                             onTap: () => context.push(
                               RouteGenerator.groupChatPageRoute,
                               extra: group,

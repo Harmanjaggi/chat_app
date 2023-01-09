@@ -29,7 +29,7 @@ class SearchGroupTile extends StatelessWidget {
             dense: true,
             leading: CircleAvatar(
               radius: 30,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Colors.grey.shade400,
               child: Text(
                 data.groupName.substring(0, 1).toUpperCase(),
                 style: const TextStyle(color: Colors.white),

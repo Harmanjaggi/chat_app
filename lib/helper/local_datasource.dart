@@ -5,6 +5,7 @@ class LocalDatasource {
   static const String _userToken = "TOKENKEY";
   static const String _userNameKey = "USERNAMEKEY";
   static const String _userEmailKey = "USEREMAILKEY";
+  static const String _userTypeKey = "USERTYPEKEY";
 
   // token
   static Future<bool> setUserToken(String token) async {
@@ -52,5 +53,21 @@ class LocalDatasource {
   static Future<String?> getUserEmail() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return sf.getString(_userEmailKey);
+  }
+
+  // type
+  static Future<bool> setUserType(String userType) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setString(_userTypeKey, userType);
+  }
+
+  static Future<bool> removeUserType() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.remove(_userTypeKey);
+  }
+
+  static Future<String?> getUserType() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(_userTypeKey);
   }
 }

@@ -4,7 +4,7 @@ import 'package:chat_app/features/components/loading_screen.dart';
 import 'package:chat_app/features/group_page/presentation/logic/search_group_cubit/search_group_cubit.dart';
 import 'package:chat_app/features/group_page/presentation/widgets/group_search_delegate.dart';
 import '../logic/create_group_cubit/create_group_cubit.dart';
-import '../widgets/base_widget.dart';
+import '../../../base_widget/pages/base_widget.dart';
 import '../widgets/create_group_dialogue_box.dart';
 import '../widgets/group_list.dart';
 import 'package:flutter/material.dart';

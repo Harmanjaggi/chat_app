@@ -1,6 +1,8 @@
 import 'package:chat_app/features/chatroom_page/data/models/chatroom_model/chatroom_model.dart';
+import 'package:chat_app/features/chatroom_page/presentation/logic/chatroom_tile_cubit/chatroom_tile_cubit.dart';
 import 'package:chat_app/features/components/chat_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../helper/helper_function.dart';
@@ -32,14 +34,8 @@ class ChatroomList extends StatelessWidget {
                   chatroomName: HelperFunction.getName(ss[reverseIndex]),
                   userName: snapshot.data['fullName'],
                 );
-                return ChatTile(
-                  title: chatroom.chatroomName,
-                  userName: chatroom.userName,
-                  onTap: () => context.push(
-                    RouteGenerator.chatroomChatRoute,
-                    extra: chatroom,
-                  ),
-                );
+                return ChatroomTile(
+                    chatroom, snapshot.data['contactList'][reverseIndex]);
               },
             );
           } else {
@@ -49,6 +45,35 @@ class ChatroomList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
       },
+    );
+  }
+}
+
+class ChatroomTile extends StatelessWidget {
+  const ChatroomTile(this.chatroom, this.email, {super.key});
+  final ChatroomModel chatroom;
+  final String email;
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ChatroomTileCubit(email, chatroom.chatroomId),
+      child: BlocBuilder<ChatroomTileCubit, ChatroomTileState>(
+        builder: (context, state) {
+          bool check = state.type != null && state.type != "";
+          String type = check ? state.type! : "NA";
+          bool isMessage = state.recentMessage != null;
+          return ChatTile(
+            title: chatroom.chatroomName,
+            subtitle: isMessage ? state.recentMessage : "No Message",
+            trailing: "Type: $type",
+            profilePic: state.image,
+            onTap: () => context.push(
+              RouteGenerator.chatroomChatRoute,
+              extra: chatroom,
+            ),
+          );
+        },
+      ),
     );
   }
 }

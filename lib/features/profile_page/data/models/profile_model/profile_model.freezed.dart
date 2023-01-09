@@ -20,8 +20,10 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProfileModel {
+  String? get profilePic => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,8 @@ abstract class $ProfileModelCopyWith<$Res> {
           ProfileModel value, $Res Function(ProfileModel) then) =
       _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
   @useResult
-  $Res call({String? userName, String? email});
+  $Res call(
+      {String? profilePic, String? userName, String? email, String? type});
 }
 
 /// @nodoc
@@ -51,10 +54,16 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? profilePic = freezed,
     Object? userName = freezed,
     Object? email = freezed,
+    Object? type = freezed,
   }) {
     return _then(_value.copyWith(
+      profilePic: freezed == profilePic
+          ? _value.profilePic
+          : profilePic // ignore: cast_nullable_to_non_nullable
+              as String?,
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -62,6 +71,10 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -75,7 +88,8 @@ abstract class _$$_ProfileModelCopyWith<$Res>
       __$$_ProfileModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? userName, String? email});
+  $Res call(
+      {String? profilePic, String? userName, String? email, String? type});
 }
 
 /// @nodoc
@@ -89,10 +103,16 @@ class __$$_ProfileModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? profilePic = freezed,
     Object? userName = freezed,
     Object? email = freezed,
+    Object? type = freezed,
   }) {
     return _then(_$_ProfileModel(
+      profilePic: freezed == profilePic
+          ? _value.profilePic
+          : profilePic // ignore: cast_nullable_to_non_nullable
+              as String?,
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -101,6 +121,10 @@ class __$$_ProfileModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -108,19 +132,24 @@ class __$$_ProfileModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ProfileModel implements _ProfileModel {
-  const _$_ProfileModel({this.userName, this.email});
+  const _$_ProfileModel(
+      {this.profilePic, this.userName, this.email, this.type});
 
   factory _$_ProfileModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProfileModelFromJson(json);
 
   @override
+  final String? profilePic;
+  @override
   final String? userName;
   @override
   final String? email;
+  @override
+  final String? type;
 
   @override
   String toString() {
-    return 'ProfileModel(userName: $userName, email: $email)';
+    return 'ProfileModel(profilePic: $profilePic, userName: $userName, email: $email, type: $type)';
   }
 
   @override
@@ -128,14 +157,18 @@ class _$_ProfileModel implements _ProfileModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProfileModel &&
+            (identical(other.profilePic, profilePic) ||
+                other.profilePic == profilePic) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userName, email);
+  int get hashCode =>
+      Object.hash(runtimeType, profilePic, userName, email, type);
 
   @JsonKey(ignore: true)
   @override
@@ -152,16 +185,23 @@ class _$_ProfileModel implements _ProfileModel {
 }
 
 abstract class _ProfileModel implements ProfileModel {
-  const factory _ProfileModel({final String? userName, final String? email}) =
-      _$_ProfileModel;
+  const factory _ProfileModel(
+      {final String? profilePic,
+      final String? userName,
+      final String? email,
+      final String? type}) = _$_ProfileModel;
 
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =
       _$_ProfileModel.fromJson;
 
   @override
+  String? get profilePic;
+  @override
   String? get userName;
   @override
   String? get email;
+  @override
+  String? get type;
   @override
   @JsonKey(ignore: true)
   _$$_ProfileModelCopyWith<_$_ProfileModel> get copyWith =>

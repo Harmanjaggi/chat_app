@@ -20,11 +20,13 @@ class InitialPage extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        return state.when(
-          initial: () => const SplashPage(),
-          loading: () => const LoadingScreen(),
-          unathorized: (c) => const LoadingScreen(),
-          authorized: (c) => const LoadingScreen(),
+        return Scaffold(
+          body: state.when(
+            initial: () => const SplashPage(),
+            loading: () => const LoadingScreen(),
+            unathorized: (c) => const LoadingScreen(),
+            authorized: (c) => const LoadingScreen(),
+          ),
         );
       },
     );

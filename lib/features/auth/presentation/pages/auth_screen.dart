@@ -1,10 +1,12 @@
+import 'package:chat_app/assets/app_images.dart';
+import 'package:chat_app/features/components/custom_image.dart';
+
 import 'login_page.dart';
 import 'register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../auth_cubit/auth_cubit.dart';
-import '../widgets/auth_background.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -12,40 +14,30 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.white,
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: context.read<AuthCubit>().controller,
         children: [
           Stack(children: const [
-            AuthBackground(),
+            CustomImage(
+              image: AppImages.authImg,
+              margin: EdgeInsets.only(top: 70),
+            ),
             LoginPage(),
           ]),
           Stack(
             alignment: AlignmentDirectional.bottomCenter,
             children: const [
-              AuthBackground(),
+              CustomImage(
+                image: AppImages.authImg,
+                margin: EdgeInsets.only(bottom: 450),
+              ),
               RegisterPage(),
             ],
           ),
         ],
       ),
-    );
-  }
-
-  Widget nameWithIcon(ThemeData theme) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 50, 16, 0),
-      child: Row(mainAxisSize: MainAxisSize.min, children: [
-        // SvgPicture.asset(AppIcons.lazyEngineerIcon),
-        const SizedBox(width: 8),
-        Text(
-          'lazyEngineer',
-          style: theme.textTheme.headline5?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ]),
     );
   }
 }

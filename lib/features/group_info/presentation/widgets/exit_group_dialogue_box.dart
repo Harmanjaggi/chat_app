@@ -1,5 +1,5 @@
 import 'package:chat_app/features/group_chat_page/data/models/group_info_model/group_info_model.dart';
-import 'package:chat_app/features/group_info/presentation/group_info_cubit/group_info_cubit.dart';
+import 'package:chat_app/features/group_info/presentation/logic/group_info_cubit/group_info_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

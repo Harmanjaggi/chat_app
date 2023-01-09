@@ -1,6 +1,7 @@
 import 'package:chat_app/features/chatroom_chat_page/presentation/pages/chatroom_chat_page.dart';
 import 'package:chat_app/features/chatroom_page/data/models/chatroom_model/chatroom_model.dart';
 import 'package:chat_app/features/chatroom_page/presentation/pages/chatroom_page.dart';
+import 'package:chat_app/features/chatroom_profile_page/presentation/pages/chatroom_profile_page.dart';
 import 'package:chat_app/features/group_chat_page/data/models/group_info_model/group_info_model.dart';
 import 'package:chat_app/features/group_chat_page/data/models/group_model/group_model.dart';
 import 'package:chat_app/features/group_chat_page/presentation/pages/group_chat_page.dart';
@@ -24,6 +25,8 @@ class RouteGenerator {
       '/group_page/group_chat_page/group_info_page';
   static const String chatroomRoute = '/chatroom_page';
   static const String chatroomChatRoute = '/chatroom_page/chatroom_chat_page';
+  static const String chatroomProfileRoute =
+      '/chatroom_page/chatroom_chat_page/chatroom_profile';
   static const String profileRoute = '/profile_page';
 
   final GoRouter goRouter;
@@ -64,9 +67,17 @@ class RouteGenerator {
           builder: (_, __) => const ChatroomPage(),
           routes: [
             GoRoute(
-              path: 'chatroom_chat_page',
-              builder: (_, state) => ChatroomChatPage(state.extra as ChatroomModel),
-            ),
+                path: 'chatroom_chat_page',
+                builder: (_, state) =>
+                    ChatroomChatPage(state.extra as ChatroomModel),
+                routes: [
+                  GoRoute(
+                    path: 'chatroom_profile',
+                    builder: (_, state) => ChatroomProfilePage(
+                      state.extra as String,
+                    ),
+                  ),
+                ]),
           ]),
       GoRoute(
         path: profileRoute,

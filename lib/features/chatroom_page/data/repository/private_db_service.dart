@@ -21,10 +21,12 @@ class PrivateDBService {
     });
   }
 
-  // todo: doubt
-  updateLastMessageSend(
-      String chatRoomId, Map<String, dynamic> lastMessageInfoMap) {
-    return chatroomsCollection.doc(chatRoomId).update(lastMessageInfoMap);
+  Future<String?> getRecentMessage(String chatRoomId) async {
+    var data = await chatroomsCollection.doc(chatRoomId).get();
+    if (data["recentMessageSender"] != null && data["recentMessage"] != null) {
+      return '${data["recentMessageSender"]}: ${data["recentMessage"]}';
+    }
+    return null;
   }
 
   Future<Stream<QuerySnapshot>> getChatRoomMessages(chatRoomId) async {

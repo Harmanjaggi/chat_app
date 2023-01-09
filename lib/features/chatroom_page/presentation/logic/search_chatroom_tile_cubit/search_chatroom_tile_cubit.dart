@@ -18,7 +18,6 @@ class SearchChatroomTileCubit extends Cubit<bool?> {
       userEmail = await LocalDatasource.getUserEmail();
       bool isJoined =
           await PrivateDBService(uid: uid).isUserJoined(chatroom.email);
-      print('2=====$userEmail=${chatroom.email}===$state');
       emit(isJoined);
     } catch (e) {
       debugPrint(e.toString());

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../components/failiure_screen.dart';
 import '../../../components/loading_screen.dart';
-import '../../../group_page/presentation/widgets/base_widget.dart';
+import '../../../base_widget/pages/base_widget.dart';
 import '../logic/chatroom_cubit/chatroom_cubit.dart';
 import '../logic/search_chatroom_cubit/search_chatroom_cubit.dart';
 import '../widgets/chatroom_list.dart';
@@ -29,7 +29,6 @@ class ChatroomPage extends StatelessWidget {
                   builder: (context, state) {
                 final searchBloc =
                     BlocProvider.of<SearchChatroomCubit>(context);
-
                 return IconButton(
                   onPressed: () {
                     showSearch(

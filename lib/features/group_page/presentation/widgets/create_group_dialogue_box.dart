@@ -22,7 +22,7 @@ class _CreateGroupDialogueBoxState extends State<CreateGroupDialogueBox> {
             : TextField(
                 onChanged: (val) {
                   setState(() {
-                    widget.groupName.call(val);
+                    widget.groupName.call(val.trim());
                   });
                 },
                 style: const TextStyle(color: Colors.black),

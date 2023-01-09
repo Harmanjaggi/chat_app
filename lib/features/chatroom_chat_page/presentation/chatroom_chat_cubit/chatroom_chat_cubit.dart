@@ -16,11 +16,7 @@ class ChatroomChatCubit extends Cubit<ChatroomChatState> {
     try {
       Stream<QuerySnapshot>? chats =
           await PrivateDBService().getChatRoomMessages(chatroom.chatroomId);
-      if (chats != null) {
-        emit(ChatroomChatState.success(chats));
-      } else {
-        emit(const ChatroomChatState.loading());
-      }
+      emit(ChatroomChatState.success(chats));
     } catch (e) {
       emit(ChatroomChatState.failure(e));
     }
