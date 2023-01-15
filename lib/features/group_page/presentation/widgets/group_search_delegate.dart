@@ -6,6 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GroupSearchDelegate extends SearchDelegate {
   final SearchGroupCubit blocContext;
   GroupSearchDelegate(this.blocContext);
+  
+  @override
+  TextInputAction get textInputAction => TextInputAction.none;
+  
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [

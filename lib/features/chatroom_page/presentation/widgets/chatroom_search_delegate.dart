@@ -7,6 +7,10 @@ import '../logic/search_chatroom_cubit/search_chatroom_cubit.dart';
 class ChatroomSearchDelegate extends SearchDelegate {
   final SearchChatroomCubit blocContext;
   ChatroomSearchDelegate(this.blocContext);
+
+  @override
+  TextInputAction get textInputAction => TextInputAction.none;
+  
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
