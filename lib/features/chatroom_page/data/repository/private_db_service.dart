@@ -21,14 +21,9 @@ class PrivateDBService {
     });
   }
 
-  Future<String?> getRecentMessage(String chatRoomId) async {
+  getRecentMessage(String chatRoomId) async {
     try {
-      final data = await chatroomsCollection.doc(chatRoomId).get();
-      if (data["recentMessageSender"] != null &&
-          data["recentMessage"] != null) {
-        return '${data["recentMessageSender"]}: ${data["recentMessage"]}';
-      }
-      return null;
+      return chatroomsCollection.doc(chatRoomId).snapshots();
     } catch (e) {
       return null;
     }
@@ -63,6 +58,8 @@ class PrivateDBService {
       "userIcon": "",
       "chatroomId": "",
       "recentMessage": "",
+      "recentMessageSender": "",
+      "recentMessageTime": "",
     });
     // update the members
     await chatroomDocumentReference.update({

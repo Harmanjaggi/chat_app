@@ -20,21 +20,23 @@ mixin _$ChatroomTileState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            String? image, String? recentMessage, String? type)
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)
         success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String? image, String? recentMessage, String? type)?
+    TResult? Function(
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)?
         success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String? image, String? recentMessage, String? type)?
+    TResult Function(
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)?
         success,
     required TResult orElse(),
   }) =>
@@ -118,7 +120,7 @@ class _$ChatroomTileInitial implements ChatroomTileInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            String? image, String? recentMessage, String? type)
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)
         success,
   }) {
     return initial();
@@ -128,7 +130,8 @@ class _$ChatroomTileInitial implements ChatroomTileInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String? image, String? recentMessage, String? type)?
+    TResult? Function(
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)?
         success,
   }) {
     return initial?.call();
@@ -138,7 +141,8 @@ class _$ChatroomTileInitial implements ChatroomTileInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String? image, String? recentMessage, String? type)?
+    TResult Function(
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)?
         success,
     required TResult orElse(),
   }) {
@@ -190,7 +194,7 @@ abstract class _$$ChatroomTileSuccessCopyWith<$Res> {
           $Res Function(_$ChatroomTileSuccess) then) =
       __$$ChatroomTileSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? image, String? recentMessage, String? type});
+  $Res call({Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage});
 }
 
 /// @nodoc
@@ -204,23 +208,18 @@ class __$$ChatroomTileSuccessCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = freezed,
+    Object? chatroomInfo = freezed,
     Object? recentMessage = freezed,
-    Object? type = freezed,
   }) {
     return _then(_$ChatroomTileSuccess(
-      freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
+      freezed == chatroomInfo
+          ? _value.chatroomInfo
+          : chatroomInfo // ignore: cast_nullable_to_non_nullable
+              as Stream<dynamic>?,
       freezed == recentMessage
           ? _value.recentMessage
           : recentMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as Stream<dynamic>?,
     ));
   }
 }
@@ -228,18 +227,16 @@ class __$$ChatroomTileSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ChatroomTileSuccess implements ChatroomTileSuccess {
-  const _$ChatroomTileSuccess(this.image, this.recentMessage, this.type);
+  const _$ChatroomTileSuccess(this.chatroomInfo, this.recentMessage);
 
   @override
-  final String? image;
+  final Stream<dynamic>? chatroomInfo;
   @override
-  final String? recentMessage;
-  @override
-  final String? type;
+  final Stream<dynamic>? recentMessage;
 
   @override
   String toString() {
-    return 'ChatroomTileState.success(image: $image, recentMessage: $recentMessage, type: $type)';
+    return 'ChatroomTileState.success(chatroomInfo: $chatroomInfo, recentMessage: $recentMessage)';
   }
 
   @override
@@ -247,14 +244,14 @@ class _$ChatroomTileSuccess implements ChatroomTileSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChatroomTileSuccess &&
-            (identical(other.image, image) || other.image == image) &&
+            (identical(other.chatroomInfo, chatroomInfo) ||
+                other.chatroomInfo == chatroomInfo) &&
             (identical(other.recentMessage, recentMessage) ||
-                other.recentMessage == recentMessage) &&
-            (identical(other.type, type) || other.type == type));
+                other.recentMessage == recentMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, image, recentMessage, type);
+  int get hashCode => Object.hash(runtimeType, chatroomInfo, recentMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -268,32 +265,34 @@ class _$ChatroomTileSuccess implements ChatroomTileSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            String? image, String? recentMessage, String? type)
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)
         success,
   }) {
-    return success(image, recentMessage, type);
+    return success(chatroomInfo, recentMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String? image, String? recentMessage, String? type)?
+    TResult? Function(
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)?
         success,
   }) {
-    return success?.call(image, recentMessage, type);
+    return success?.call(chatroomInfo, recentMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String? image, String? recentMessage, String? type)?
+    TResult Function(
+            Stream<dynamic>? chatroomInfo, Stream<dynamic>? recentMessage)?
         success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(image, recentMessage, type);
+      return success(chatroomInfo, recentMessage);
     }
     return orElse();
   }
@@ -331,12 +330,11 @@ class _$ChatroomTileSuccess implements ChatroomTileSuccess {
 }
 
 abstract class ChatroomTileSuccess implements ChatroomTileState {
-  const factory ChatroomTileSuccess(final String? image,
-      final String? recentMessage, final String? type) = _$ChatroomTileSuccess;
+  const factory ChatroomTileSuccess(final Stream<dynamic>? chatroomInfo,
+      final Stream<dynamic>? recentMessage) = _$ChatroomTileSuccess;
 
-  String? get image;
-  String? get recentMessage;
-  String? get type;
+  Stream<dynamic>? get chatroomInfo;
+  Stream<dynamic>? get recentMessage;
   @JsonKey(ignore: true)
   _$$ChatroomTileSuccessCopyWith<_$ChatroomTileSuccess> get copyWith =>
       throw _privateConstructorUsedError;

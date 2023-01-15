@@ -13,14 +13,14 @@ class ChatroomTileCubit extends Cubit<ChatroomTileState> {
       : super(const ChatroomTileState.initial()) {
     getChatroomData();
   }
+  Stream? chatroomInfo;
+  Stream? lastSeen;
   getChatroomData() async {
     try {
       String? uid = await ProfielService().getUid(email);
-      String? image = await ProfielService(uid: uid).openProfilePic();
-      String? type = await ProfielService(uid: uid).getType();
-      String? recentMessage =
-          await PrivateDBService().getRecentMessage(chatroomId);
-      emit(ChatroomTileState.success(image, recentMessage, type));
+      chatroomInfo = await PrivateDBService(uid: uid).getChatRooms();
+      lastSeen = await PrivateDBService().getRecentMessage(chatroomId);
+      emit(ChatroomTileState.success(chatroomInfo, lastSeen));
     } catch (e) {
       debugPrint(e.toString());
     }

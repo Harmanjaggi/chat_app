@@ -65,29 +65,53 @@ class ChatroomTile extends StatelessWidget {
       child: BlocBuilder<ChatroomTileCubit, ChatroomTileState>(
         builder: (context, state) {
           return state.when(
-              initial: () => ChatTile(
-                title: chatroom.chatroomName,
-                subtitle: "No Message",
-                onTap: () => context.push(
-                    RouteGenerator.chatroomChatRoute,
-                    extra: chatroom,
-                  ),
+            initial: () => ChatTile(
+              title: chatroom.chatroomName,
+              subtitle: "No Message",
+              onTap: () => context.push(
+                RouteGenerator.chatroomChatRoute,
+                extra: chatroom,
               ),
-              success: (image, recentMessage, userType) {
-                bool check = userType != null && userType != "";
-                String type = check ? userType : "NA";
-                bool isMessage = recentMessage != null;
-                return ChatTile(
-                  title: chatroom.chatroomName,
-                  subtitle: isMessage ? recentMessage : "No Message",
-                  trailing: "Type: $type",
-                  profilePic: image,
-                  onTap: () => context.push(
-                    RouteGenerator.chatroomChatRoute,
-                    extra: chatroom,
-                  ),
-                );
-              });
+            ),
+            success: (chatroomInfo, lastSeen) {
+              return StreamBuilder(
+                stream: chatroomInfo,
+                builder: (context, s) {
+                  if (s.hasData && s.data != null) {
+                    var ss = s.data;
+                    bool check = ss['type'] != null && ss['type'] != "";
+                    String type = check ? ss['type'] : "NA";
+                    return StreamBuilder(
+                      stream: lastSeen,
+                      builder: (context, sl) {
+                        if (sl.hasData && sl.data != null) {
+                          String? sender, message;
+                          message = sl.data["recentMessage"];
+                          if (message != null && message != "") {
+                            sender = sl.data["recentMessageSender"];
+                          }
+                          bool isMessage = sender != null;
+                          return ChatTile(
+                            title: chatroom.chatroomName,
+                            subtitle:
+                                isMessage ? '$sender: $message' : "No Message",
+                            trailing: "Type: $type",
+                            profilePic: ss['profilePic'],
+                            onTap: () => context.push(
+                              RouteGenerator.chatroomChatRoute,
+                              extra: chatroom,
+                            ),
+                          );
+                        }
+                        return Container();
+                      },
+                    );
+                  }
+                  return Container();
+                },
+              );
+            },
+          );
         },
       ),
     );

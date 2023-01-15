@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:chat_app/features/auth/presentation/pages/register_page.dart';
 import 'package:chat_app/features/components/custom_button.dart';
 import 'package:chat_app/features/components/custom_dropdown.dart';
-import 'package:chat_app/features/components/custom_text_field.dart';
 import 'package:chat_app/features/components/failiure_screen.dart';
 import 'package:chat_app/features/components/loading_screen.dart';
 import 'package:chat_app/features/profile_page/presentation/profile_cubit/profile_cubit.dart';

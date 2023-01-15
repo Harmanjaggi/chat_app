@@ -14,42 +14,38 @@ class ChatroomPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => ChatroomCubit()),
-        BlocProvider(create: (context) => SearchChatroomCubit()),
-      ],
-      child: BlocBuilder<ChatroomCubit, ChatroomState>(
-        builder: (context, state) {
-          return BaseWidget(
-            'Chat Rooms',
-            action: BlocProvider(
-              create: (context) => SearchChatroomCubit(),
-              child: BlocBuilder<SearchChatroomCubit, SearchChatroomState>(
-                  builder: (context, state) {
-                final searchBloc =
-                    BlocProvider.of<SearchChatroomCubit>(context);
-                return IconButton(
-                  onPressed: () {
-                    showSearch(
-                      context: context,
-                      delegate: ChatroomSearchDelegate(searchBloc),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                );
-              }),
+    return BaseWidget(
+      'Chat Rooms',
+      action: BlocProvider(
+        create: (context) => SearchChatroomCubit(),
+        child: BlocBuilder<SearchChatroomCubit, SearchChatroomState>(
+            builder: (context, state) {
+          final searchBloc = BlocProvider.of<SearchChatroomCubit>(context);
+          return IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: ChatroomSearchDelegate(searchBloc),
+              );
+            },
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
             ),
-            child: state.when(
-                  loading: () => const LoadingScreen(),
-                  failure: (e) => FailureScreen(e),
-                  success: (data) => ChatroomList(data),
-                ),
           );
-        },
+        }),
+      ),
+      child: BlocProvider(
+        create: (context) => ChatroomCubit(),
+        child: BlocBuilder<ChatroomCubit, ChatroomState>(
+          builder: (context, state) {
+            return state.when(
+              loading: () => const LoadingScreen(),
+              failure: (e) => FailureScreen(e),
+              success: (data) => ChatroomList(data),
+            );
+          },
+        ),
       ),
     );
   }
