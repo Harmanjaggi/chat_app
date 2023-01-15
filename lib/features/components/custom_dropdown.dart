@@ -31,7 +31,8 @@ class CustomDropdown extends FormField<String> {
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: DropdownButton<String>(
-                    elevation: 0,
+                    elevation: 1,
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                     underline: const SizedBox(),
                     isExpanded: isExpanded,
                     hint: hintText != null ? Text(hintText) : null,

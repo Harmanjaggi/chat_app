@@ -26,7 +26,7 @@ class ChatTile extends StatelessWidget {
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 12, 12),
       leading: CircleAvatar(
         radius: 30,
-        backgroundColor: Colors.grey.shade400,
+        backgroundColor: Colors.blueGrey,
         child: profilePic != null && profilePic != ""
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(30),

@@ -60,7 +60,7 @@ class MemberTile extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
             leading: CircleAvatar(
               radius: 30,
-              backgroundColor: Colors.grey.shade400,
+              backgroundColor: Colors.blueGrey,
               child: Text(
                 userName.substring(0, 1).toUpperCase(),
                 style: const TextStyle(

@@ -103,11 +103,18 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 ),
                           if (isEdit)
-                            CircleAvatar(
-                              backgroundColor: Colors.grey,
-                              child: IconButton(
-                                onPressed: () => cubit.getProfileImage(),
-                                icon: const Icon(Icons.edit),
+                            Material(
+                              borderRadius: BorderRadius.circular(20),
+                              elevation: 2,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.blueGrey,
+                                child: IconButton(
+                                  onPressed: () => cubit.getProfileImage(),
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white70,
+                                  ),
+                                ),
                               ),
                             ),
                         ],
