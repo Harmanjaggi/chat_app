@@ -18,7 +18,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
   PlatformFile? pickedFile;
   ProfileModel? data;
-
+  bool isEdit = false;
   String? uid;
 
   getProfileData() async {
@@ -33,7 +33,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         // contactList: contactList?.map((e) => e.toString()).toList(),
       );
       data != null
-          ? emit(ProfileState.success(data!, null))
+          ? emit(ProfileState.success(data!, null, false))
           : emit(const ProfileState.loading());
     } catch (e) {
       emit(ProfileState.failure(e));
@@ -41,13 +41,40 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   getProfileImage() async {
-    emit(const ProfileState.loading());
     try {
+      emit(const ProfileState.loading());
       final result = await FilePicker.platform.pickFiles(
         type: FileType.image,
       );
       if (result != null) {
         pickedFile = result.files.first;
+        emit(ProfileState.success(data!, pickedFile, true));
+      } else {
+        emit(ProfileState.success(data!, null, true));
+      }
+    } catch (e) {
+      emit(ProfileState.failure(e));
+    }
+  }
+
+  toggleIsEdit() {
+    isEdit = !isEdit;
+    emit(ProfileState.success(data!, pickedFile, isEdit));
+  }
+
+  Future<MultipartFile?> getMultiPath(PlatformFile? file) async {
+    try {
+      return MultipartFile.fromFile(pickedFile!.path!);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  apply(String type) async {
+    emit(const ProfileState.loading());
+    try {
+      String? imageUrl;
+      if (pickedFile != null) {
         File imageFile = File(pickedFile!.path!);
         String fileName = DateTime.now().microsecondsSinceEpoch.toString();
         Reference firebaseStorageRef =
@@ -56,22 +83,26 @@ class ProfileCubit extends Cubit<ProfileState> {
         //Store the file
         await refImageToUpload.putFile(imageFile);
         //Success: get the download URL
-        String imageUrl = await refImageToUpload.getDownloadURL();
-        await ProfielService(uid: uid).updateProfilePic(imageUrl);
-        emit(ProfileState.success(data!, pickedFile));
-      } else {
-        emit(const ProfileState.loading());
+        imageUrl = await refImageToUpload.getDownloadURL();
       }
+      await ProfielService(uid: uid).updateProfileData(
+        imageUrl,
+        type == '' ? null : type,
+      );
+      if (type != '') {
+        await LocalDatasource.setUserType(type);
+      }
+      data = ProfileModel(
+        userName: await LocalDatasource.getUserName(),
+        email: await LocalDatasource.getUserEmail(),
+        profilePic: await ProfielService(uid: uid).openProfilePic(),
+        type: await ProfielService(uid: uid).getType(),
+        // contactList: contactList?.map((e) => e.toString()).toList(),
+      );
+
+      emit(ProfileState.success(data!, pickedFile, false));
     } catch (e) {
       emit(ProfileState.failure(e));
-    }
-  }
-
-  Future<MultipartFile?> getMultiPath(PlatformFile? file) async {
-    try {
-      return MultipartFile.fromFile(pickedFile!.path!);
-    } catch (e) {
-      return null;
     }
   }
 }

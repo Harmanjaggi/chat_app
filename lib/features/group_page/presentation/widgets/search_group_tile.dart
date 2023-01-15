@@ -51,7 +51,7 @@ class SearchGroupTile extends StatelessWidget {
                         Colors.green,
                         "Successfully joined he group",
                       );
-                      Future.delayed(const Duration(seconds: 1), () {
+                      Future.delayed(const Duration(seconds: 3), () {
                         nextScreen(context, GroupChatPage(groupData));
                       });
                     } else {

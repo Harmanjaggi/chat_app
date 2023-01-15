@@ -19,21 +19,25 @@ mixin _$ProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data, PlatformFile? image) success,
+    required TResult Function(
+            ProfileModel data, PlatformFile? image, bool isEdit)
+        success,
     required TResult Function(dynamic e) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data, PlatformFile? image)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult? Function(dynamic e)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data, PlatformFile? image)? success,
+    TResult Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) =>
@@ -119,7 +123,9 @@ class _$ProfileLoading implements ProfileLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data, PlatformFile? image) success,
+    required TResult Function(
+            ProfileModel data, PlatformFile? image, bool isEdit)
+        success,
     required TResult Function(dynamic e) failure,
   }) {
     return loading();
@@ -129,7 +135,8 @@ class _$ProfileLoading implements ProfileLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data, PlatformFile? image)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult? Function(dynamic e)? failure,
   }) {
     return loading?.call();
@@ -139,7 +146,8 @@ class _$ProfileLoading implements ProfileLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data, PlatformFile? image)? success,
+    TResult Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) {
@@ -194,7 +202,7 @@ abstract class _$$ProfileSuccessCopyWith<$Res> {
           _$ProfileSuccess value, $Res Function(_$ProfileSuccess) then) =
       __$$ProfileSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({ProfileModel data, PlatformFile? image});
+  $Res call({ProfileModel data, PlatformFile? image, bool isEdit});
 
   $ProfileModelCopyWith<$Res> get data;
 }
@@ -212,6 +220,7 @@ class __$$ProfileSuccessCopyWithImpl<$Res>
   $Res call({
     Object? data = null,
     Object? image = freezed,
+    Object? isEdit = null,
   }) {
     return _then(_$ProfileSuccess(
       null == data
@@ -222,6 +231,10 @@ class __$$ProfileSuccessCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as PlatformFile?,
+      null == isEdit
+          ? _value.isEdit
+          : isEdit // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -237,16 +250,18 @@ class __$$ProfileSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProfileSuccess implements ProfileSuccess {
-  const _$ProfileSuccess(this.data, this.image);
+  const _$ProfileSuccess(this.data, this.image, this.isEdit);
 
   @override
   final ProfileModel data;
   @override
   final PlatformFile? image;
+  @override
+  final bool isEdit;
 
   @override
   String toString() {
-    return 'ProfileState.success(data: $data, image: $image)';
+    return 'ProfileState.success(data: $data, image: $image, isEdit: $isEdit)';
   }
 
   @override
@@ -255,11 +270,12 @@ class _$ProfileSuccess implements ProfileSuccess {
         (other.runtimeType == runtimeType &&
             other is _$ProfileSuccess &&
             (identical(other.data, data) || other.data == data) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.isEdit, isEdit) || other.isEdit == isEdit));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, data, image);
+  int get hashCode => Object.hash(runtimeType, data, image, isEdit);
 
   @JsonKey(ignore: true)
   @override
@@ -271,32 +287,36 @@ class _$ProfileSuccess implements ProfileSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data, PlatformFile? image) success,
+    required TResult Function(
+            ProfileModel data, PlatformFile? image, bool isEdit)
+        success,
     required TResult Function(dynamic e) failure,
   }) {
-    return success(data, image);
+    return success(data, image, isEdit);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data, PlatformFile? image)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult? Function(dynamic e)? failure,
   }) {
-    return success?.call(data, image);
+    return success?.call(data, image, isEdit);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data, PlatformFile? image)? success,
+    TResult Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(data, image);
+      return success(data, image, isEdit);
     }
     return orElse();
   }
@@ -337,11 +357,12 @@ class _$ProfileSuccess implements ProfileSuccess {
 }
 
 abstract class ProfileSuccess implements ProfileState {
-  const factory ProfileSuccess(
-      final ProfileModel data, final PlatformFile? image) = _$ProfileSuccess;
+  const factory ProfileSuccess(final ProfileModel data,
+      final PlatformFile? image, final bool isEdit) = _$ProfileSuccess;
 
   ProfileModel get data;
   PlatformFile? get image;
+  bool get isEdit;
   @JsonKey(ignore: true)
   _$$ProfileSuccessCopyWith<_$ProfileSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -413,7 +434,9 @@ class _$ProfileFailure implements ProfileFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(ProfileModel data, PlatformFile? image) success,
+    required TResult Function(
+            ProfileModel data, PlatformFile? image, bool isEdit)
+        success,
     required TResult Function(dynamic e) failure,
   }) {
     return failure(e);
@@ -423,7 +446,8 @@ class _$ProfileFailure implements ProfileFailure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(ProfileModel data, PlatformFile? image)? success,
+    TResult? Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult? Function(dynamic e)? failure,
   }) {
     return failure?.call(e);
@@ -433,7 +457,8 @@ class _$ProfileFailure implements ProfileFailure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(ProfileModel data, PlatformFile? image)? success,
+    TResult Function(ProfileModel data, PlatformFile? image, bool isEdit)?
+        success,
     TResult Function(dynamic e)? failure,
     required TResult orElse(),
   }) {

@@ -10,7 +10,7 @@ part 'chatroom_tile_cubit.freezed.dart';
 class ChatroomTileCubit extends Cubit<ChatroomTileState> {
   String email, chatroomId;
   ChatroomTileCubit(this.email, this.chatroomId)
-      : super(const ChatroomTileState(null, null, null)) {
+      : super(const ChatroomTileState.initial()) {
     getChatroomData();
   }
   getChatroomData() async {
@@ -18,8 +18,9 @@ class ChatroomTileCubit extends Cubit<ChatroomTileState> {
       String? uid = await ProfielService().getUid(email);
       String? image = await ProfielService(uid: uid).openProfilePic();
       String? type = await ProfielService(uid: uid).getType();
-      String? recentMessage = await PrivateDBService().getRecentMessage(chatroomId);
-      emit(ChatroomTileState(image, recentMessage, type));
+      String? recentMessage =
+          await PrivateDBService().getRecentMessage(chatroomId);
+      emit(ChatroomTileState.success(image, recentMessage, type));
     } catch (e) {
       debugPrint(e.toString());
     }

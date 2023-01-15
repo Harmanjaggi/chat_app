@@ -1,6 +1,5 @@
 import 'package:chat_app/features/profile_page/data/models/profile_model/profile_model.dart';
 import 'package:chat_app/features/profile_page/data/repositories/profile_service.dart';
-import 'package:chat_app/helper/local_datasource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

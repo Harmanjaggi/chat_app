@@ -25,15 +25,13 @@ class SearchChatroomTile extends StatelessWidget {
                 Colors.green,
                 "Successfully joined he group",
               );
-
+              await Future.delayed(const Duration(seconds: 3));
               ChatroomModel chatroomData = ChatroomModel(
                 userName: chatroom.userName,
                 chatroomId: cubit.chatroomId!,
                 chatroomName: chatroom.chatroomName,
               );
-              Future.delayed(const Duration(seconds: 1), () {
-                nextScreen(context, ChatroomChatPage(chatroomData));
-              });
+              nextScreen(context, ChatroomChatPage(chatroomData));
             } else {
               showSnackbar(
                 context,

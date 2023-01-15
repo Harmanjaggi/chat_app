@@ -22,11 +22,16 @@ class PrivateDBService {
   }
 
   Future<String?> getRecentMessage(String chatRoomId) async {
-    var data = await chatroomsCollection.doc(chatRoomId).get();
-    if (data["recentMessageSender"] != null && data["recentMessage"] != null) {
-      return '${data["recentMessageSender"]}: ${data["recentMessage"]}';
+    try {
+      final data = await chatroomsCollection.doc(chatRoomId).get();
+      if (data["recentMessageSender"] != null &&
+          data["recentMessage"] != null) {
+        return '${data["recentMessageSender"]}: ${data["recentMessage"]}';
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
-    return null;
   }
 
   Future<Stream<QuerySnapshot>> getChatRoomMessages(chatRoomId) async {

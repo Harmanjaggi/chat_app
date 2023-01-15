@@ -43,10 +43,20 @@ class ProfielService {
     return documentSnapshot['contactList'];
   }
 
-  Future updateProfilePic(String profilePic) async {
+  Future updateProfileData(
+    String? profilePic,
+    String? type,
+  ) async {
     DocumentReference userDocumentReference = userCollection.doc(uid);
-    await userDocumentReference.update({
-      "profilePic": profilePic,
-    });
+    if (profilePic != null) {
+      await userDocumentReference.update({
+        "profilePic": profilePic,
+      });
+    }
+    if (type != null) {
+      await userDocumentReference.update({
+        "type": type,
+      });
+    }
   }
 }

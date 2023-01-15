@@ -80,11 +80,13 @@ class RegisterPage extends StatelessWidget with InputValidationMixin {
                 ),
               ),
               const SizedBox(height: 16),
-              CustomDropdown(
-                width: 130,
-                hintText: 'Type',
-                list: typeList,
-                controller: typeController,
+              Center(
+                child: CustomDropdown(
+                  width: 130,
+                  hintText: 'Type',
+                  list: typeList,
+                  controller: typeController,
+                ),
               ),
               const SizedBox(height: 18),
               Center(

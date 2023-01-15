@@ -16,12 +16,47 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChatroomTileState {
-  String? get image => throw _privateConstructorUsedError;
-  String? get recentMessage => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ChatroomTileStateCopyWith<ChatroomTileState> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(
+            String? image, String? recentMessage, String? type)
+        success,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String? image, String? recentMessage, String? type)?
+        success,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String? image, String? recentMessage, String? type)?
+        success,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChatroomTileInitial value) initial,
+    required TResult Function(ChatroomTileSuccess value) success,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChatroomTileInitial value)? initial,
+    TResult? Function(ChatroomTileSuccess value)? success,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChatroomTileInitial value)? initial,
+    TResult Function(ChatroomTileSuccess value)? success,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -30,8 +65,6 @@ abstract class $ChatroomTileStateCopyWith<$Res> {
   factory $ChatroomTileStateCopyWith(
           ChatroomTileState value, $Res Function(ChatroomTileState) then) =
       _$ChatroomTileStateCopyWithImpl<$Res, ChatroomTileState>;
-  @useResult
-  $Res call({String? image, String? recentMessage, String? type});
 }
 
 /// @nodoc
@@ -43,48 +76,129 @@ class _$ChatroomTileStateCopyWithImpl<$Res, $Val extends ChatroomTileState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? image = freezed,
-    Object? recentMessage = freezed,
-    Object? type = freezed,
-  }) {
-    return _then(_value.copyWith(
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      recentMessage: freezed == recentMessage
-          ? _value.recentMessage
-          : recentMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$ChatroomTileCopyWith<$Res>
-    implements $ChatroomTileStateCopyWith<$Res> {
-  factory _$$ChatroomTileCopyWith(
-          _$ChatroomTile value, $Res Function(_$ChatroomTile) then) =
-      __$$ChatroomTileCopyWithImpl<$Res>;
+abstract class _$$ChatroomTileInitialCopyWith<$Res> {
+  factory _$$ChatroomTileInitialCopyWith(_$ChatroomTileInitial value,
+          $Res Function(_$ChatroomTileInitial) then) =
+      __$$ChatroomTileInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ChatroomTileInitialCopyWithImpl<$Res>
+    extends _$ChatroomTileStateCopyWithImpl<$Res, _$ChatroomTileInitial>
+    implements _$$ChatroomTileInitialCopyWith<$Res> {
+  __$$ChatroomTileInitialCopyWithImpl(
+      _$ChatroomTileInitial _value, $Res Function(_$ChatroomTileInitial) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ChatroomTileInitial implements ChatroomTileInitial {
+  const _$ChatroomTileInitial();
+
   @override
+  String toString() {
+    return 'ChatroomTileState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ChatroomTileInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(
+            String? image, String? recentMessage, String? type)
+        success,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String? image, String? recentMessage, String? type)?
+        success,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String? image, String? recentMessage, String? type)?
+        success,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChatroomTileInitial value) initial,
+    required TResult Function(ChatroomTileSuccess value) success,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChatroomTileInitial value)? initial,
+    TResult? Function(ChatroomTileSuccess value)? success,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChatroomTileInitial value)? initial,
+    TResult Function(ChatroomTileSuccess value)? success,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChatroomTileInitial implements ChatroomTileState {
+  const factory ChatroomTileInitial() = _$ChatroomTileInitial;
+}
+
+/// @nodoc
+abstract class _$$ChatroomTileSuccessCopyWith<$Res> {
+  factory _$$ChatroomTileSuccessCopyWith(_$ChatroomTileSuccess value,
+          $Res Function(_$ChatroomTileSuccess) then) =
+      __$$ChatroomTileSuccessCopyWithImpl<$Res>;
   @useResult
   $Res call({String? image, String? recentMessage, String? type});
 }
 
 /// @nodoc
-class __$$ChatroomTileCopyWithImpl<$Res>
-    extends _$ChatroomTileStateCopyWithImpl<$Res, _$ChatroomTile>
-    implements _$$ChatroomTileCopyWith<$Res> {
-  __$$ChatroomTileCopyWithImpl(
-      _$ChatroomTile _value, $Res Function(_$ChatroomTile) _then)
+class __$$ChatroomTileSuccessCopyWithImpl<$Res>
+    extends _$ChatroomTileStateCopyWithImpl<$Res, _$ChatroomTileSuccess>
+    implements _$$ChatroomTileSuccessCopyWith<$Res> {
+  __$$ChatroomTileSuccessCopyWithImpl(
+      _$ChatroomTileSuccess _value, $Res Function(_$ChatroomTileSuccess) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -94,7 +208,7 @@ class __$$ChatroomTileCopyWithImpl<$Res>
     Object? recentMessage = freezed,
     Object? type = freezed,
   }) {
-    return _then(_$ChatroomTile(
+    return _then(_$ChatroomTileSuccess(
       freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -113,8 +227,8 @@ class __$$ChatroomTileCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ChatroomTile implements ChatroomTile {
-  const _$ChatroomTile(this.image, this.recentMessage, this.type);
+class _$ChatroomTileSuccess implements ChatroomTileSuccess {
+  const _$ChatroomTileSuccess(this.image, this.recentMessage, this.type);
 
   @override
   final String? image;
@@ -125,14 +239,14 @@ class _$ChatroomTile implements ChatroomTile {
 
   @override
   String toString() {
-    return 'ChatroomTileState(image: $image, recentMessage: $recentMessage, type: $type)';
+    return 'ChatroomTileState.success(image: $image, recentMessage: $recentMessage, type: $type)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ChatroomTile &&
+            other is _$ChatroomTileSuccess &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.recentMessage, recentMessage) ||
                 other.recentMessage == recentMessage) &&
@@ -145,22 +259,85 @@ class _$ChatroomTile implements ChatroomTile {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ChatroomTileCopyWith<_$ChatroomTile> get copyWith =>
-      __$$ChatroomTileCopyWithImpl<_$ChatroomTile>(this, _$identity);
+  _$$ChatroomTileSuccessCopyWith<_$ChatroomTileSuccess> get copyWith =>
+      __$$ChatroomTileSuccessCopyWithImpl<_$ChatroomTileSuccess>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(
+            String? image, String? recentMessage, String? type)
+        success,
+  }) {
+    return success(image, recentMessage, type);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String? image, String? recentMessage, String? type)?
+        success,
+  }) {
+    return success?.call(image, recentMessage, type);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String? image, String? recentMessage, String? type)?
+        success,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(image, recentMessage, type);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChatroomTileInitial value) initial,
+    required TResult Function(ChatroomTileSuccess value) success,
+  }) {
+    return success(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChatroomTileInitial value)? initial,
+    TResult? Function(ChatroomTileSuccess value)? success,
+  }) {
+    return success?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChatroomTileInitial value)? initial,
+    TResult Function(ChatroomTileSuccess value)? success,
+    required TResult orElse(),
+  }) {
+    if (success != null) {
+      return success(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class ChatroomTile implements ChatroomTileState {
-  const factory ChatroomTile(final String? image, final String? recentMessage,
-      final String? type) = _$ChatroomTile;
+abstract class ChatroomTileSuccess implements ChatroomTileState {
+  const factory ChatroomTileSuccess(final String? image,
+      final String? recentMessage, final String? type) = _$ChatroomTileSuccess;
 
-  @override
   String? get image;
-  @override
   String? get recentMessage;
-  @override
   String? get type;
-  @override
   @JsonKey(ignore: true)
-  _$$ChatroomTileCopyWith<_$ChatroomTile> get copyWith =>
+  _$$ChatroomTileSuccessCopyWith<_$ChatroomTileSuccess> get copyWith =>
       throw _privateConstructorUsedError;
 }

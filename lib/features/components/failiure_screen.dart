@@ -8,10 +8,13 @@ class FailureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Center(
-      child: Text(
-        error.toString(),
-        style: theme.textTheme.bodyLarge?.copyWith(
-          color: theme.errorColor,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 32),
+        child: Text(
+          error.toString(),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: theme.errorColor,
+          ),
         ),
       ),
     );

@@ -39,7 +39,12 @@ class ChatroomList extends StatelessWidget {
               },
             );
           } else {
-            return const Text('No Data');
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 32),
+                child: Text('No Data'),
+              ),
+            );
           }
         } else {
           return const Center(child: CircularProgressIndicator());
@@ -59,19 +64,30 @@ class ChatroomTile extends StatelessWidget {
       create: (context) => ChatroomTileCubit(email, chatroom.chatroomId),
       child: BlocBuilder<ChatroomTileCubit, ChatroomTileState>(
         builder: (context, state) {
-          bool check = state.type != null && state.type != "";
-          String type = check ? state.type! : "NA";
-          bool isMessage = state.recentMessage != null;
-          return ChatTile(
-            title: chatroom.chatroomName,
-            subtitle: isMessage ? state.recentMessage : "No Message",
-            trailing: "Type: $type",
-            profilePic: state.image,
-            onTap: () => context.push(
-              RouteGenerator.chatroomChatRoute,
-              extra: chatroom,
-            ),
-          );
+          return state.when(
+              initial: () => ChatTile(
+                title: chatroom.chatroomName,
+                subtitle: "No Message",
+                onTap: () => context.push(
+                    RouteGenerator.chatroomChatRoute,
+                    extra: chatroom,
+                  ),
+              ),
+              success: (image, recentMessage, userType) {
+                bool check = userType != null && userType != "";
+                String type = check ? userType : "NA";
+                bool isMessage = recentMessage != null;
+                return ChatTile(
+                  title: chatroom.chatroomName,
+                  subtitle: isMessage ? recentMessage : "No Message",
+                  trailing: "Type: $type",
+                  profilePic: image,
+                  onTap: () => context.push(
+                    RouteGenerator.chatroomChatRoute,
+                    extra: chatroom,
+                  ),
+                );
+              });
         },
       ),
     );
