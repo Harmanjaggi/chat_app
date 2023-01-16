@@ -15,7 +15,9 @@ class _CreateGroupDialogueBoxState extends State<CreateGroupDialogueBox> {
       mainAxisSize: MainAxisSize.min,
       children: [
         widget.isLoading == true
-            ? Center(
+            ? Container(
+                height: 30,
+                alignment: Alignment.center,
                 child: CircularProgressIndicator(
                     color: Theme.of(context).primaryColor),
               )

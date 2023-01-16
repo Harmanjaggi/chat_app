@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:chat_app/features/profile_page/data/models/profile_model/profile_model.dart';
 import 'package:chat_app/features/profile_page/data/repositories/profile_service.dart';
 import 'package:chat_app/helper/local_datasource.dart';
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -60,14 +59,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   toggleIsEdit() {
     isEdit = !isEdit;
     emit(ProfileState.success(data!, pickedFile, isEdit));
-  }
-
-  Future<MultipartFile?> getMultiPath(PlatformFile? file) async {
-    try {
-      return MultipartFile.fromFile(pickedFile!.path!);
-    } catch (e) {
-      return null;
-    }
   }
 
   apply(String type) async {

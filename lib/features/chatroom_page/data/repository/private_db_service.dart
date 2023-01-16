@@ -55,7 +55,6 @@ class PrivateDBService {
     DocumentReference chatroomDocumentReference =
         await chatroomsCollection.add({
       "userName": userName2,
-      "userIcon": "",
       "chatroomId": "",
       "recentMessage": "",
       "recentMessageSender": "",

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../assets/app_images.dart';
 
 class CustomImage extends StatelessWidget {
@@ -55,23 +54,12 @@ class CustomImage extends StatelessWidget {
               return _networkImage();
             } else if (image == null) {
               return _noImage();
-            } else if (image!.split('.').last == 'svg') {
-              return _svgImage();
             } else {
               return _assetImage();
             }
           }(),
         ),
       ),
-    );
-  }
-
-  Widget _svgImage() {
-    return SvgPicture.asset(
-      image!,
-      width: width,
-      height: height,
-      fit: boxFit,
     );
   }
 
