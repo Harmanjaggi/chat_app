@@ -10,11 +10,13 @@ void main() async {
 
   if (kIsWeb) {
     await Firebase.initializeApp(
-        options: FirebaseOptions(
-            apiKey: Constants.apiKey,
-            appId: Constants.appId,
-            messagingSenderId: Constants.messagingSenderId,
-            projectId: Constants.projectId));
+      options: FirebaseOptions(
+        apiKey: Constants.apiKey,
+        appId: Constants.appId,
+        messagingSenderId: Constants.messagingSenderId,
+        projectId: Constants.projectId,
+      ),
+    );
   } else {
     await Firebase.initializeApp();
   }

@@ -23,7 +23,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   getProfileData() async {
     try {
       uid = FirebaseAuth.instance.currentUser!.uid;
-      // List<dynamic>? contactList = await ProfielService(uid: uid).getContactList();
       data = ProfileModel(
         userName: await LocalDatasource.getUserName(),
         email: await LocalDatasource.getUserEmail(),

@@ -80,11 +80,13 @@ popUpDialog(BuildContext context) {
                     ),
                     content: state.when(
                       initial: () => CreateGroupDialogueBox(
-                        false,
                         (val) => groupName = val,
                       ),
+                      loading: () => const SizedBox(
+                        height: 70,
+                        child: LoadingScreen(),
+                      ),
                       success: () => const LoadingScreen(),
-                      loading: () => const LoadingScreen(),
                       failure: (e) => FailureScreen(e),
                     ),
                     actions: [

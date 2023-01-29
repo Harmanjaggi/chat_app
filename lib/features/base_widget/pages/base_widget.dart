@@ -20,6 +20,7 @@ class BaseWidget extends StatelessWidget {
   final Widget? leading, action, floatingActionButton;
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         body: CustomScrollView(
@@ -67,27 +68,53 @@ class BaseWidget extends StatelessWidget {
                             color: Colors.grey[700],
                           ),
                     const SizedBox(height: 15),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(left: 70),
-                      child: Text(
-                        "Username: ${state.userName ?? ''}",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(left: 70),
-                      child: Text(
-                        "Type: ${state.type ?? ''}",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Table(
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        defaultColumnWidth:
+                            const IntrinsicColumnWidth(flex: 4.0),
+                        children: [
+                          TableRow(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Text(
+                                  "Username :",
+                                  style: theme.textTheme.titleLarge,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
+                                child: Text(
+                                  state.userName.toString(),
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Text(
+                                  "Type :",
+                                  style: theme.textTheme.titleLarge,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
+                                child: Text(
+                                  state.type.toString(),
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 30),

@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GroupSearchDelegate extends SearchDelegate {
   final SearchGroupCubit blocContext;
   GroupSearchDelegate(this.blocContext);
-  
+
   @override
   TextInputAction get textInputAction => TextInputAction.none;
-  
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -54,7 +54,10 @@ class GroupSearchDelegate extends SearchDelegate {
       bloc: blocContext,
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 24,
+          ),
           child: state.when(
             initial: () => Container(),
             failure: (e) => Container(),
